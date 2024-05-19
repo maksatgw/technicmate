@@ -4,6 +4,7 @@ class Palette {
   static const transparent = Colors.transparent;
   static const white = Colors.white;
   static const black = Colors.black;
+  static const tmMainBlue = Color(0xFF3EA9FF);
   static const authTextFieldFillColor = Color(0xFF00182B);
   static const authSuffixColor = Color(0xFF005493);
 

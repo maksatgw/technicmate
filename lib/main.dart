@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:technicmate/features/splash/view/splash_view.dart';
 import 'package:technicmate/theme/theme.dart';
 
 void main() {
@@ -9,7 +10,7 @@ void main() {
       darkTheme: AppTheme.theme,
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(),
+      home: SplashView(),
     ),
   );
 }
