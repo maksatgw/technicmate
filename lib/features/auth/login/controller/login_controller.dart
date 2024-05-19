@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:technicmate/features/auth/login/view/login_password_view.dart';
 import 'package:technicmate/features/auth/login/model/user_request_model.dart';
 import 'package:technicmate/features/auth/service/login_service.dart';
+import 'package:technicmate/features/feed/view/feed_view.dart';
 
 class LoginController extends GetxController {
   //UI Tarafında TextFormField'larımızın controller nesnelerini tanımlıyoruz.
@@ -51,6 +52,7 @@ class LoginController extends GetxController {
         backgroundColor: Colors.blue,
         icon: const Icon(Icons.add_alert),
       );
+      Get.to(() => FeedView());
     }
   }
 }

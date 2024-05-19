@@ -26,7 +26,7 @@ class LoginPasswordView extends StatelessWidget {
           children: [
             Column(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   minRadius: 50,
                 ),
                 const SizedBox(height: 10),
