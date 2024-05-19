@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:technicmate/features/auth/login/view/login_view.dart';
 
 //SplashController adında sınıfımız getxcontroller adındaki bir abstract classtan miras alır.
 class SplashController extends GetxController {
@@ -7,8 +8,7 @@ class SplashController extends GetxController {
   void onInit() {
     //5 saniye gecikmeli bir işlem yaparak Logine yönlendirme yapıyoruz.
     Future.delayed(const Duration(seconds: 5), () {
-      //Login Feature eklendiğinde bu satır değişecek.
-      Get.off("Login");
+      Get.off(() => LoginView());
     });
     super.onInit();
   }

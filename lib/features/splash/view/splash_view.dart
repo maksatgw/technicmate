@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:technicmate/constants/asset_constants.dart';
+import 'package:technicmate/constants/constants.dart';
+
 import 'package:technicmate/features/splash/controller/splash_controller.dart';
 import 'package:technicmate/theme/palette.dart';
 
