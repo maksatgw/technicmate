@@ -12,7 +12,6 @@ class FeedService {
       if (response.statusCode == 200) {
         print(response.data);
         var values = FeedModel.fromJson(response.data);
-
         return values;
       }
     } on DioException catch (e) {
