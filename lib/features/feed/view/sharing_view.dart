@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
-import 'package:technicmate/features/feed/model/feed_model.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class SharingView extends StatelessWidget {
@@ -68,7 +67,7 @@ class SharingView extends StatelessWidget {
                                         Flexible(
                                           flex: 1,
                                           child: Text(
-                                            "${data![index].user?.email}",
+                                            "${data[index].user?.email}",
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.inter(
                                               fontSize: 12,
