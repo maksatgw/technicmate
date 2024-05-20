@@ -90,7 +90,7 @@ class SharingView extends StatelessWidget {
                                         const SizedBox(width: 5),
                                         Flexible(
                                           child: Text(
-                                            "• 5Dk",
+                                            "• ${data[index].createdAt}",
                                             overflow: TextOverflow.ellipsis,
                                             style: GoogleFonts.inter(
                                               fontSize: 12,

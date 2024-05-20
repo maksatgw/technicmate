@@ -44,19 +44,28 @@ class LoginController extends GetxController {
     req.email = emailController.text;
     req.password = passwordController.text;
     var response = await service.postUser(req);
-    if (response?.success == true) {
+    if (response?.success == false) {
+      Get.snackbar(
+        "Hata",
+        "Bir sorun ile karşılaşıldı. Lütfen tekrar deneyin.",
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+        icon: const Icon(Icons.add_alert),
+      );
+    } else {
       box.write("bearer", response?.data?.token);
       box.write("uid", response?.data?.userId);
       box.write("uimage", response?.data?.user?.profileImageData);
       Get.snackbar(
         "Başarılı",
-        "${box.read("bearer")}",
+        "Hoş geldiniz",
         snackPosition: SnackPosition.BOTTOM,
         colorText: Colors.white,
         backgroundColor: Colors.blue,
         icon: const Icon(Icons.add_alert),
       );
-      Get.to(() => HomeView());
+      Get.offAll(HomeView());
     }
   }
 }

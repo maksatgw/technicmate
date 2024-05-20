@@ -3,8 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
+import 'package:technicmate/features/auth/login/view/login_view.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
 import 'package:technicmate/features/feed/view/sharing_view.dart';
+import 'package:technicmate/features/splash/controller/splash_controller.dart';
+import 'package:technicmate/features/splash/view/splash_view.dart';
 
 class FeedView extends StatelessWidget {
   FeedView({super.key});
@@ -20,7 +23,11 @@ class FeedView extends StatelessWidget {
           children: [
             ListTile(
               title: const Text("Çıkış"),
-              onTap: () {},
+              onTap: () {
+                controller.box.remove("bearer");
+                final find = Get.put(SplashController()).onInit();
+                Get.off(() => SplashView());
+              },
             )
           ],
         ),

@@ -44,15 +44,15 @@ class UserProfileView extends StatelessWidget {
               style: GoogleFonts.inter(color: Palette.textGrey9999),
             ),
             const SizedBox(height: 10),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(MediaQuery.of(context).size.width, 35),
-                ),
-                child: Text("Takip Et", style: GoogleFonts.inter(fontSize: 16, color: Palette.white)),
-              ),
-            ),
+            // Center(
+            //   child: ElevatedButton(
+            //     onPressed: () {},
+            //     style: ElevatedButton.styleFrom(
+            //       minimumSize: Size(MediaQuery.of(context).size.width, 35),
+            //     ),
+            //     child: Text("Takip Et", style: GoogleFonts.inter(fontSize: 16, color: Palette.white)),
+            //   ),
+            // ),
             const SizedBox(height: 5),
             TabBar(
               controller: controller.tabController,
@@ -98,10 +98,10 @@ class UserProfileView extends StatelessWidget {
                                       await controller2.fetchPosts(selectedUserId);
                                       Get.to(UserProfileView());
                                     },
-                                    child: const CircleAvatar(
+                                    child: CircleAvatar(
                                       radius: 24,
                                       backgroundImage: NetworkImage(
-                                        'https://pbs.twimg.com/profile_images/1622557245950107648/jq2sqW7i_400x400.jpg',
+                                        "${controller.feedModel.value.data?[index].user?.profileImageData}",
                                       ),
                                     ),
                                   ),
