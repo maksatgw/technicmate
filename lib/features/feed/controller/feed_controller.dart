@@ -6,6 +6,8 @@ import 'package:technicmate/features/feed/service/feed_service.dart';
 class FeedController extends GetxController with GetSingleTickerProviderStateMixin {
   late TabController tabController;
   final FeedService service = FeedService();
+  final GlobalKey<ScaffoldState> key = GlobalKey();
+
   var isLoading = false.obs;
   var model = FeedModel().obs;
   @override

@@ -9,23 +9,25 @@ import 'package:technicmate/features/feed/view/sharing_view.dart';
 class FeedView extends StatelessWidget {
   FeedView({super.key});
   final controller = Get.put(FeedController());
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: controller.key,
+      drawer: Drawer(),
       appBar: AppBar(
-        toolbarHeight: 75,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () => controller.key.currentState!.openDrawer(),
           icon: SvgPicture.asset(
             AssetConstants.technicMateLogoWhite,
-            height: 40,
-            width: 40,
+            height: 30,
+            width: 30,
             fit: BoxFit.contain,
           ),
         ),
         actions: const [
-          CircleAvatar(),
+          CircleAvatar(
+            maxRadius: 16,
+          ),
           SizedBox(width: 10),
         ],
         bottom: TabBar(

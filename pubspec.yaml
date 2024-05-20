@@ -38,7 +38,7 @@ dependencies:
   # State Management
   get: ^4.6.6
   # UI
-  google_fonts: 
+  google_fonts: ^6.2.1 
   flutter_svg: 
   flutter_custom_clippers: ^2.1.0
   flutter_glow: ^0.3.0
@@ -72,7 +72,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/svgs/
-  #   - images/a_dot_ham.jpeg
+    - assets/svgs/bottom_navbar/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
