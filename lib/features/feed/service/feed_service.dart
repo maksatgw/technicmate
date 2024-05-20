@@ -10,7 +10,6 @@ class FeedService {
     try {
       final response = await dio.get("/posts", options: Options(headers: {"authorization": "Bearer ${box.read("bearer")}"}));
       if (response.statusCode == 200) {
-        print(response.data);
         var values = FeedModel.fromJson(response.data);
         return values;
       }

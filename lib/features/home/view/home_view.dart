@@ -13,11 +13,10 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
-      key: controller.scaffoldKey,
       body: Obx(() => controller.pages[controller.currentIndex.value]),
       bottomNavigationBar: Obx(
         () => CupertinoTabBar(
+          height: 80,
           currentIndex: controller.currentIndex.value,
           onTap: (index) => controller.changePage(index),
           backgroundColor: Palette.transparent,
@@ -30,6 +29,22 @@ class HomeView extends StatelessWidget {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 controller.currentIndex.value == 1 ? AssetConstants.bottomNavSearchActive : AssetConstants.bottomNavSearchPassive,
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: Container(
+                height: 66,
+                width: 66,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SvgPicture.asset(
+                    AssetConstants.bottomNavBarCenterAdd,
+                  ),
+                ),
               ),
             ),
           ],

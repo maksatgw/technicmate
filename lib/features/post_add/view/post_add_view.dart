@@ -8,65 +8,81 @@ import 'package:technicmate/theme/theme.dart';
 class PostAddView extends StatelessWidget {
   PostAddView({super.key});
   final controller = Get.put(PostAddController());
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Palette.chatBlueButtonColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-              onPressed: () {
-                controller.postData();
-              },
-              child: const Icon(
-                Icons.add,
-              ),
-            ),
+          Obx(
+            () => controller.isLoading.isFalse
+                ? Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Palette.chatBlueButtonColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          controller.postData();
+                        }
+                      },
+                      child: const Icon(
+                        Icons.add,
+                      ),
+                    ),
+                  )
+                : const CircularProgressIndicator(),
           ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Wrap(
-                spacing: 5,
-                children: [
-                  PostAddCustomChip(selectedValue: controller.selectedValue, index: 1, title: "Soru", icon: AssetConstants.iconQuestion),
-                  PostAddCustomChip(selectedValue: controller.selectedValue, index: 2, title: "Bilgi", icon: AssetConstants.iconInfo),
-                  PostAddCustomChip(selectedValue: controller.selectedValue, index: 3, title: "Hiçbiri", icon: ""),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: TextField(
-                controller: controller.postBodyController,
-                style: const TextStyle(fontSize: 16),
-                decoration: InputDecoration(
-                  hintText: "Technicmate için bir post paylaş!",
-                  hintStyle: const TextStyle(color: Palette.textGrey777),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Palette.chatTextFieldBg,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Wrap(
+                  spacing: 5,
+                  children: [
+                    PostAddCustomChip(selectedValue: controller.selectedValue, index: 1, title: "Soru", icon: AssetConstants.iconQuestion),
+                    PostAddCustomChip(selectedValue: controller.selectedValue, index: 2, title: "Bilgi", icon: AssetConstants.iconInfo),
+                    PostAddCustomChip(selectedValue: controller.selectedValue, index: 3, title: "Hiçbiri", icon: ""),
+                  ],
                 ),
-                maxLines: null,
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              Expanded(
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Lütfen boş geçmeyiniz.";
+                    }
+                    return null;
+                  },
+                  controller: controller.postBodyController,
+                  style: const TextStyle(fontSize: 16),
+                  decoration: InputDecoration(
+                    hintText: "Technicmate için bir post paylaş!",
+                    hintStyle: const TextStyle(color: Palette.textGrey777),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: Palette.chatTextFieldBg,
+                  ),
+                  maxLines: null,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

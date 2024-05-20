@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:technicmate/features/feed/view/feed_view.dart';
+import 'package:technicmate/features/post_add/view/post_add_view.dart';
 import 'package:technicmate/features/search/view/search_view.dart';
 
 class HomeController extends GetxController {
   var currentIndex = 0.obs;
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   void changePage(int index) {
     currentIndex.value = index;
@@ -14,5 +14,6 @@ class HomeController extends GetxController {
   final List<Widget> pages = [
     FeedView(),
     const SearchView(),
+    PostAddView(),
   ];
 }
