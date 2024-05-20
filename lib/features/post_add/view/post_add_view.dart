@@ -23,7 +23,9 @@ class PostAddView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                controller.postData();
+              },
               child: const Icon(
                 Icons.add,
               ),
@@ -49,6 +51,7 @@ class PostAddView extends StatelessWidget {
             const SizedBox(height: 20),
             Expanded(
               child: TextField(
+                controller: controller.postBodyController,
                 style: const TextStyle(fontSize: 16),
                 decoration: InputDecoration(
                   hintText: "Technicmate için bir post paylaş!",
