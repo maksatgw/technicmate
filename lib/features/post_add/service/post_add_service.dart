@@ -18,7 +18,7 @@ class PostAddService {
       );
       if (response.statusCode == 200) {
         print(response.data);
-        return response.data;
+        return PostAddModel.fromJson(response.data);
       }
     } on DioException catch (e) {
       print(e);

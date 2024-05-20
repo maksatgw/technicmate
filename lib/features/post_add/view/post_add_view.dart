@@ -6,11 +6,11 @@ import 'package:technicmate/features/post_add/controller/post_add_controller.dar
 import 'package:technicmate/theme/theme.dart';
 
 class PostAddView extends StatelessWidget {
-  const PostAddView({super.key});
+  PostAddView({super.key});
+  final controller = Get.put(PostAddController());
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(PostAddController());
     return Scaffold(
       appBar: AppBar(
         actions: [

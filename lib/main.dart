@@ -17,7 +17,7 @@ void main() async {
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       getPages: AppPages.pages,
-      home: HomeView(),
+      home: PostAddView(),
     ),
   );
 }
