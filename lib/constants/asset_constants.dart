@@ -15,4 +15,7 @@ class AssetConstants {
   static const String bottomNavMessageActive = '$_svgsPath/bottom_navbar/ic_message_active.svg';
   static const String bottomNavMessagePassive = '$_svgsPath/bottom_navbar/ic_message_passive.svg';
   static const String bottomNavBarCenterAdd = '$_svgsPath/bottom_navbar/ic_add_center.svg';
+
+  static const String iconQuestion = '$_svgsPath/ic_question.svg';
+  static const String iconInfo = '$_svgsPath/ic_info.svg';
 }
