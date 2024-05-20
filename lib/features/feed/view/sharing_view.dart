@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
+import 'package:technicmate/features/user/controller/user_profile_controller.dart';
+import 'package:technicmate/features/user/view/user_profile_view.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class SharingView extends StatelessWidget {
@@ -36,10 +38,20 @@ class SharingView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CircleAvatar(
-                          radius: 24,
-                          backgroundImage: NetworkImage(
-                            'https://pbs.twimg.com/profile_images/1622557245950107648/jq2sqW7i_400x400.jpg',
+                        InkWell(
+                          onTap: () async {
+                            UserProfileController controller2 = Get.put(UserProfileController());
+                            String selectedUserId = controller.model.value.data![index].user!.userId.toString();
+                            controller2.userId = selectedUserId;
+                            await controller2.fetchPosts(selectedUserId);
+                            await controller2.fetchUserDetail(selectedUserId);
+                            Get.to(UserProfileView());
+                          },
+                          child: const CircleAvatar(
+                            radius: 24,
+                            backgroundImage: NetworkImage(
+                              'https://pbs.twimg.com/profile_images/1622557245950107648/jq2sqW7i_400x400.jpg',
+                            ),
                           ),
                         ),
                         const SizedBox(width: 10), // Boşluk ekledim
