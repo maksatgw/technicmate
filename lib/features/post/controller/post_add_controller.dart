@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
 import 'package:technicmate/features/home/controller/home_controller.dart';
-import 'package:technicmate/features/post_add/model/post_create_model.dart';
-import 'package:technicmate/features/post_add/service/post_add_service.dart';
+import 'package:technicmate/features/post/model/post_create_model.dart';
+import 'package:technicmate/features/post/service/post_add_service.dart';
 
 class PostAddController extends GetxController {
   RxBool isSelected = false.obs;

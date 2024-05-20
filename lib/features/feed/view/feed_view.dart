@@ -15,10 +15,19 @@ class FeedView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: const Text("Çıkış"),
+              onTap: () {},
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () => _key.currentState?.openDrawer(),
           icon: SvgPicture.asset(
             AssetConstants.technicMateLogoWhite,
             height: 30,
@@ -26,10 +35,29 @@ class FeedView extends StatelessWidget {
             fit: BoxFit.contain,
           ),
         ),
-        actions: const [
-          CircleAvatar(
-            maxRadius: 16,
-          ),
+        actions: [
+          Obx(() {
+            if (controller.images.isNotEmpty) {
+              return CircleAvatar(
+                minRadius: 16,
+                child: ClipOval(
+                  child: Image.network(
+                    controller.images.value,
+                    width: 40,
+                    height: 40,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            }
+            if (controller.images.isEmpty) {
+              return const Center(
+                child: Text("Öğe yok"),
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
+          }),
           SizedBox(width: 10),
         ],
         bottom: TabBar(

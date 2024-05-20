@@ -5,7 +5,7 @@ import 'package:technicmate/features/auth/login/model/chek_email_model.dart';
 import 'package:technicmate/features/auth/login/view/login_password_view.dart';
 import 'package:technicmate/features/auth/login/model/user_request_model.dart';
 import 'package:technicmate/features/auth/service/login_service.dart';
-import 'package:technicmate/features/feed/view/feed_view.dart';
+import 'package:technicmate/features/home/view/home_view.dart';
 
 class LoginController extends GetxController {
   //UI Tarafında TextFormField'larımızın controller nesnelerini tanımlıyoruz.
@@ -46,6 +46,8 @@ class LoginController extends GetxController {
     var response = await service.postUser(req);
     if (response?.success == true) {
       box.write("bearer", response?.data?.token);
+      box.write("uid", response?.data?.userId);
+      box.write("uimage", response?.data?.user?.profileImageData);
       Get.snackbar(
         "Başarılı",
         "${box.read("bearer")}",
@@ -54,7 +56,7 @@ class LoginController extends GetxController {
         backgroundColor: Colors.blue,
         icon: const Icon(Icons.add_alert),
       );
-      Get.to(() => FeedView());
+      Get.to(() => HomeView());
     }
   }
 }

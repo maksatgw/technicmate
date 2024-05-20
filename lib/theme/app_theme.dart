@@ -5,6 +5,10 @@ import 'package:technicmate/theme/palette.dart';
 class AppTheme {
   static ThemeData theme = ThemeData.dark().copyWith(
     brightness: Brightness.dark,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Palette.tmMainBlue,
+      brightness: Brightness.dark,
+    ),
     scaffoldBackgroundColor: Palette.black,
     drawerTheme: const DrawerThemeData(
       backgroundColor: Palette.black,

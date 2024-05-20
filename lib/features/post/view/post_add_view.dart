@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:technicmate/constants/constants.dart';
-import 'package:technicmate/features/post_add/controller/post_add_controller.dart';
+import 'package:technicmate/features/post/controller/post_add_controller.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class PostAddView extends StatelessWidget {

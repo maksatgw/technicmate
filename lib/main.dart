@@ -5,8 +5,9 @@ import 'package:technicmate/core/routes/get_routes.dart';
 import 'package:technicmate/features/auth/login/view/login_view.dart';
 import 'package:technicmate/features/feed/view/feed_view.dart';
 import 'package:technicmate/features/home/view/home_view.dart';
-import 'package:technicmate/features/post_add/view/post_add_view.dart';
+import 'package:technicmate/features/post/view/post_add_view.dart';
 import 'package:technicmate/features/search/view/search_view.dart';
+import 'package:technicmate/features/user/view/user_profile.dart';
 import 'package:technicmate/theme/theme.dart';
 
 void main() async {
@@ -18,7 +19,7 @@ void main() async {
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       getPages: AppPages.pages,
-      home: LoginView(),
+      home: UserProfileView(),
     ),
   );
 }

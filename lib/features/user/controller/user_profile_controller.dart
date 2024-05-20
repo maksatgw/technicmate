@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:technicmate/features/feed/model/feed_model.dart';
-import 'package:technicmate/features/feed/service/feed_service.dart';
+import 'package:technicmate/features/user/service/user_profile_service.dart';
 
-class FeedController extends GetxController with GetSingleTickerProviderStateMixin {
+class UserProfileController extends GetxController with GetSingleTickerProviderStateMixin {
   late TabController tabController;
-  final FeedService service = FeedService();
-  final box = GetStorage();
+  final UserProfileService service = UserProfileService();
   var isLoading = false.obs;
   var model = FeedModel().obs;
-  var images = "".obs;
+
   @override
-  void onInit() async {
+  void onInit() {
     tabController = TabController(length: 2, vsync: this);
-    await fetchPosts();
-    images.value = box.read("uimage");
-    print(images);
+    fetchPosts(1);
     super.onInit();
   }
 
-  Future<void> fetchPosts() async {
+  Future<void> fetchPosts(int userId) async {
     isLoading.value = true;
-    var response = await service.getPosts();
+    var response = await service.getPostsByUserId(userId);
     if (response != null) {
       model.value = response;
       isLoading.value = false;
