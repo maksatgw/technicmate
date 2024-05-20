@@ -12,11 +12,11 @@ class FeedController extends GetxController with GetSingleTickerProviderStateMix
   @override
   void onInit() async {
     tabController = TabController(length: 2, vsync: this);
-    await fetchUsers();
+    await fetchPosts();
     super.onInit();
   }
 
-  Future<void> fetchUsers() async {
+  Future<void> fetchPosts() async {
     isLoading.value = true;
     var response = await service.getPosts();
     if (response != null) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:technicmate/features/feed/controller/feed_controller.dart';
 import 'package:technicmate/features/home/controller/home_controller.dart';
-import 'package:technicmate/features/home/view/home_view.dart';
 import 'package:technicmate/features/post_add/model/post_create_model.dart';
 import 'package:technicmate/features/post_add/service/post_add_service.dart';
 
@@ -29,10 +29,9 @@ class PostAddController extends GetxController {
           backgroundColor: Colors.blue,
           icon: const Icon(Icons.add_alert),
         );
-
-        // Get instance of HomeController
         HomeController homeController = Get.find<HomeController>();
-        // Change the current index to the desired page (e.g., 0 for FeedView)
+        FeedController feedController = Get.find<FeedController>();
+        await feedController.fetchPosts();
         homeController.changePage(0);
       }
     } catch (e) {
