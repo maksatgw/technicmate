@@ -34,8 +34,8 @@ class Data {
   String? rootMail;
   String? studentMail;
   University? university;
-
-  Data({this.isLogin, this.isRegister, this.email, this.rootMail, this.studentMail, this.university});
+  String? profileImage;
+  Data({this.isLogin, this.isRegister, this.email, this.rootMail, this.studentMail, this.university, this.profileImage});
 
   Data.fromJson(Map<String, dynamic> json) {
     isLogin = json['is_login'];
@@ -43,6 +43,7 @@ class Data {
     email = json['email'];
     rootMail = json['root_mail'];
     studentMail = json['student_mail'];
+    profileImage = json['profile_image_data'];
     university = json['university'] != null ? new University.fromJson(json['university']) : null;
   }
 

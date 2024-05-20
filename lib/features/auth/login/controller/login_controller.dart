@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:technicmate/features/auth/login/model/chek_email_model.dart';
 import 'package:technicmate/features/auth/login/view/login_password_view.dart';
 import 'package:technicmate/features/auth/login/model/user_request_model.dart';
 import 'package:technicmate/features/auth/service/login_service.dart';
@@ -16,6 +17,7 @@ class LoginController extends GetxController {
   UserRequestModel req = UserRequestModel();
   //Local storage için kullanacağımız kütüphane nesnesi.
   final box = GetStorage();
+  CheckEmailModel model = CheckEmailModel();
 
   //Void tipinde asenkron bir metot.
   //Diğer featurelar eklendiğinde değişiklikler yapılacak.
@@ -23,8 +25,8 @@ class LoginController extends GetxController {
     req.email = emailController.text;
     var response = await service.checkEmail(req);
     if (response?.success == true) {
-      if (response?.data?.isLogin == true) {
-        Get.to(() => LoginPasswordView());
+      if (response?.data?.isLogin == true && response != null) {
+        Get.to(() => LoginPasswordView(model: response));
       }
     } else {
       Get.snackbar(

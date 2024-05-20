@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/auth/login/controller/login_controller.dart';
+import 'package:technicmate/features/auth/login/model/chek_email_model.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class LoginPasswordView extends StatelessWidget {
-  LoginPasswordView({super.key});
+  LoginPasswordView({super.key, required this.model});
   final controller = Get.put(LoginController());
+  final CheckEmailModel model;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,15 +30,23 @@ class LoginPasswordView extends StatelessWidget {
               children: [
                 CircleAvatar(
                   minRadius: 50,
+                  child: ClipOval(
+                    child: Image.network(
+                      "${model.data?.profileImage.toString()}",
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 RichText(
                   text: TextSpan(
-                    text: "berke.turk",
+                    text: "${model.data?.rootMail}",
                     style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(
-                        text: "@deu.edu.tr",
+                        text: "${model.data?.studentMail}",
                         style: GoogleFonts.inter(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
