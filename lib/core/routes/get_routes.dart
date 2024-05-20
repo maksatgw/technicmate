@@ -15,7 +15,7 @@ abstract class Routes {
 class AppPages {
   static final pages = [
     GetPage(name: Routes.FEED, page: () => FeedView()),
-    GetPage(name: Routes.SEARCH, page: () => const SearchView()),
+    GetPage(name: Routes.SEARCH, page: () => SearchView()),
     GetPage(name: Routes.POSTADD, page: () => PostAddView()),
   ];
 }

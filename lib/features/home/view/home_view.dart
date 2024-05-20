@@ -27,11 +27,6 @@ class HomeView extends StatelessWidget {
               ),
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                controller.currentIndex.value == 1 ? AssetConstants.bottomNavSearchActive : AssetConstants.bottomNavSearchPassive,
-              ),
-            ),
-            BottomNavigationBarItem(
               icon: Container(
                 height: 66,
                 width: 66,
@@ -45,6 +40,11 @@ class HomeView extends StatelessWidget {
                     AssetConstants.bottomNavBarCenterAdd,
                   ),
                 ),
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                controller.currentIndex.value == 2 ? AssetConstants.bottomNavSearchActive : AssetConstants.bottomNavSearchPassive,
               ),
             ),
           ],

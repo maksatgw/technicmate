@@ -47,10 +47,10 @@ class SharingView extends StatelessWidget {
                             await controller2.fetchUserDetail(selectedUserId);
                             Get.to(UserProfileView());
                           },
-                          child: const CircleAvatar(
+                          child: CircleAvatar(
                             radius: 24,
                             backgroundImage: NetworkImage(
-                              'https://pbs.twimg.com/profile_images/1622557245950107648/jq2sqW7i_400x400.jpg',
+                              '${data?[index].user!.profileImageData}',
                             ),
                           ),
                         ),

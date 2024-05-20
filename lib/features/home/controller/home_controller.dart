@@ -13,7 +13,7 @@ class HomeController extends GetxController {
 
   final List<Widget> pages = [
     FeedView(),
-    const SearchView(),
     PostAddView(),
+    SearchView(),
   ];
 }

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
+import 'package:technicmate/features/search/controller/search_controller.dart';
 import 'package:technicmate/theme/palette.dart';
 
 class SearchView extends StatelessWidget {
-  const SearchView({super.key});
-
+  SearchView({super.key});
+  final controller = Get.put(UserSearchController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,6 +17,12 @@ class SearchView extends StatelessWidget {
         title: SizedBox(
           height: 40,
           child: TextField(
+            controller: controller.searchTextEdit,
+            onChanged: (value) async {
+              if (value.isNotEmpty) {
+                await controller.searchUser(value);
+              }
+            },
             style: const TextStyle(fontSize: 14),
             decoration: InputDecoration(
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(50), borderSide: BorderSide.none),
@@ -27,38 +35,77 @@ class SearchView extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView.separated(
-        separatorBuilder: (context, index) {
-          return const Divider();
-        },
-        itemCount: 2,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const CircleAvatar(
-                  radius: 24,
-                  backgroundImage: NetworkImage(
-                    'https://pbs.twimg.com/profile_images/1622557245950107648/jq2sqW7i_400x400.jpg',
-                  ),
-                ),
-                const SizedBox(width: 10), // Boşluk ekledim
-                Expanded(
-                  child: Column(
+      body: Obx(
+        () {
+          if (controller.isLoading.isTrue) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (controller.model.value.data == null) {
+            return const Center(child: Text("Veri yok"));
+          } else if (controller.model.value.data!.isEmpty) {
+            return const Center(child: Text("Veri yok"));
+          } else {
+            return ListView.separated(
+              separatorBuilder: (context, index) {
+                return const Divider();
+              },
+              itemCount: controller.model.value.data?.length ?? 0,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Row(
+                      CircleAvatar(
+                        radius: 24,
+                        backgroundImage: NetworkImage(
+                          "${controller.model.value.data?[index].profileImageData}",
+                        ),
+                      ),
+                      const SizedBox(width: 10), // Boşluk ekledim
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        flex: 1,
+                                        child: Text(
+                                          "${controller.model.value.data?[index].email} ",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            color: Palette.usernameGrey,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SvgPicture.asset(
+                                  AssetConstants.threeDotsOption,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Text(
+                                  "${controller.model.value.data?[index].firstname} ${controller.model.value.data?[index].lastname}",
+                                  style: GoogleFonts.cabin(fontSize: 16),
+                                  textAlign: TextAlign.start,
+                                ),
+                                const SizedBox(width: 5),
                                 Flexible(
-                                  flex: 1,
                                   child: Text(
-                                    "@berketurktr",
+                                    "Takip Ediyorsun",
                                     overflow: TextOverflow.ellipsis,
                                     style: GoogleFonts.inter(
                                       fontSize: 12,
@@ -68,39 +115,15 @@ class SearchView extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          ),
-                          SvgPicture.asset(
-                            AssetConstants.threeDotsOption,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Row(
-                        children: [
-                          Text(
-                            "BERKE TÜRK",
-                            style: GoogleFonts.cabin(fontSize: 16),
-                            textAlign: TextAlign.start,
-                          ),
-                          const SizedBox(width: 5),
-                          Flexible(
-                            child: Text(
-                              "Takip Ediyorsun",
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.inter(
-                                fontSize: 12,
-                                color: Palette.usernameGrey,
-                              ),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-          );
+                );
+              },
+            );
+          }
         },
       ),
     );
