@@ -40,7 +40,7 @@ class RegisterController extends GetxController {
       registerModel.birthDate = selectedDate.value.toString();
       registerModel.firstname = registerNameController.text;
       registerModel.lastname = registerSurnameController.text;
-      registerModel.gender = selectedGender.value;
+      registerModel.gender = selectedGender.value + 1;
       registerModel.departmentId = departId.value;
       registerModel.email = email;
       registerModel.encryptedPassword = passwordController.text;
