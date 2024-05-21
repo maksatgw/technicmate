@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/auth/login/view/login_view.dart';
 import 'package:technicmate/features/auth/register/controller/register_controller.dart';
+import 'package:technicmate/features/auth/register/view/register_code_view.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class RegisterPasswordView extends StatelessWidget {
@@ -104,9 +105,9 @@ class RegisterPasswordView extends StatelessWidget {
                       height: 34,
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          var result = await controller.registerCodePost();
-                          var result2 = await controller.registerUser();
-                          Get.offAll(LoginView());
+                          // var result = await controller.registerCodePost();
+                          // var result2 = await controller.registerUser();
+                          Get.to(() => RegisterCodeView());
                         }
                       },
                       child: Text(

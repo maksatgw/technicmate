@@ -12,6 +12,7 @@ import 'package:technicmate/theme/theme.dart';
 class RegisterFacultyView extends StatelessWidget {
   RegisterFacultyView({super.key});
   final controller = Get.put(RegisterController());
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,8 +147,19 @@ class RegisterFacultyView extends StatelessWidget {
                       width: 110,
                       height: 34,
                       onPressed: () {
-                        print(controller.departId);
-                        Get.to(() => RegisterPasswordView());
+                        if (controller.departId.value == null || controller.departId.value.isEmpty) {
+                          Get.snackbar(
+                            "Hata",
+                            "Lütfen bir bölüm seçin.",
+                            snackPosition: SnackPosition.BOTTOM,
+                            colorText: Colors.white,
+                            backgroundColor: Colors.red,
+                            icon: const Icon(Icons.add_alert),
+                          );
+                        } else {
+                          print(controller.departId);
+                          Get.to(() => RegisterPasswordView());
+                        }
                       },
                       child: Text(
                         "Devam Et",

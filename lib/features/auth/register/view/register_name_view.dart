@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import 'package:technicmate/theme/theme.dart';
 class RegisterNameView extends StatelessWidget {
   RegisterNameView({super.key});
   final controller = Get.put(RegisterController());
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class RegisterNameView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Form(
+                key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -61,6 +64,17 @@ class RegisterNameView extends StatelessWidget {
                     const SizedBox(height: 10),
                     TextFormField(
                       controller: controller.registerNameController,
+                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]'))],
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Lütfen boş geçmeyiniz.";
+                        }
+                        if (value.length < 2) {
+                          return "Lütfen en az iki karakter giriniz.";
+                        } else {
+                          return null;
+                        }
+                      },
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: BorderSide.none),
                         filled: true,
@@ -78,6 +92,17 @@ class RegisterNameView extends StatelessWidget {
                     const SizedBox(height: 10),
                     TextFormField(
                       controller: controller.registerSurnameController,
+                      inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]'))],
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Lütfen boş geçmeyiniz.";
+                        }
+                        if (value.length < 2) {
+                          return "Lütfen en az iki karakter giriniz.";
+                        } else {
+                          return null;
+                        }
+                      },
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: BorderSide.none),
                         filled: true,
@@ -117,11 +142,13 @@ class RegisterNameView extends StatelessWidget {
                       width: 110,
                       height: 34,
                       onPressed: () {
-                        print(controller.universityId);
-                        print(controller.email);
-                        print(controller.registerNameController.text);
-                        print(controller.registerSurnameController.text);
-                        Get.to(() => RegisterBirthdateView());
+                        if (_formKey.currentState!.validate()) {
+                          print(controller.universityId);
+                          print(controller.email);
+                          print(controller.registerNameController.text);
+                          print(controller.registerSurnameController.text);
+                          Get.to(() => RegisterBirthdateView());
+                        }
                       },
                       child: Text(
                         "Devam Et",

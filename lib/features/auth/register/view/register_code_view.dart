@@ -4,10 +4,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
+import 'package:technicmate/features/auth/login/view/login_view.dart';
+import 'package:technicmate/features/auth/register/controller/register_controller.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class RegisterCodeView extends StatelessWidget {
-  const RegisterCodeView({super.key});
+  RegisterCodeView({super.key});
+  final controller = Get.put(RegisterController());
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +51,7 @@ class RegisterCodeView extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Form(
+                key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -57,6 +62,13 @@ class RegisterCodeView extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Lütfen gelen kodu doldurunuz.";
+                        } else {
+                          return null;
+                        }
+                      },
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: BorderSide.none),
                         filled: true,
@@ -95,7 +107,13 @@ class RegisterCodeView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       width: 110,
                       height: 34,
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          var result = await controller.registerCodePost();
+                          var result2 = await controller.registerUser();
+                          Get.offAll(() => LoginView());
+                        }
+                      },
                       child: Text(
                         "Devam Et",
                         style: GoogleFonts.inter(fontSize: 14),

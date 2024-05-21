@@ -19,9 +19,15 @@ class SharingView extends StatelessWidget {
           () {
             if (controller.isLoading.value == true) {
               return const Center(child: CircularProgressIndicator());
-            } else if (controller.model.value.data == null) {
+            }
+            if (controller.model.value.data == null) {
               return const Center(
                 child: Text("Veri alınamadı"),
+              );
+            }
+            if (controller.model.value.data!.isEmpty) {
+              return const Center(
+                child: Text("Buralar sakin. İlk olmak ister misin?"),
               );
             } else {
               return RefreshIndicator(
