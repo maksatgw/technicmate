@@ -40,7 +40,7 @@ class UserProfileView extends StatelessWidget {
             ),
             Text(
               controller.userModel.value.data?.university?.title ?? "",
-              style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w300, color: Palette.),
+              style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w300, color: Palette.white),
             ),
             const SizedBox(height: 10),
             UserProfileCustomClassNumberIndicator(department: controller.userModel.value.data?.department?.title ?? ""),
