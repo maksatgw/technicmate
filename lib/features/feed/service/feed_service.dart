@@ -6,7 +6,7 @@ import 'package:technicmate/features/feed/model/feed_model.dart';
 class FeedService {
   final Dio dio = DioService.baseDio();
   final box = GetStorage();
-  Future<FeedModel?> getPosts() async {
+  Future<FeedModel?> getPosts () async {
     try {
       final response = await dio.get("/posts", options: Options(headers: {"authorization": "Bearer ${box.read("bearer")}"}));
       if (response.statusCode == 200) {

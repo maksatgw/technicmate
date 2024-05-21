@@ -15,12 +15,14 @@ class PostAddController extends GetxController {
 
   Future<void> postData() async {
     try {
-      req.postTypeId = selectedValue.value ?? 1;
+      req.postTypeId = selectedValue.value ?? 3;
       req.text = postBodyController.text;
       isLoading.value = true;
       var response = await service.postData(req);
       if (response?.success == true) {
-        isLoading.value = false;
+        HomeController homeController = Get.find<HomeController>();
+        FeedController feedController = Get.find<FeedController>();
+        await feedController.fetchPosts();
         Get.snackbar(
           "Başarılı",
           "Postunuz kaydedildi.",
@@ -29,22 +31,25 @@ class PostAddController extends GetxController {
           backgroundColor: Colors.blue,
           icon: const Icon(Icons.add_alert),
         );
+        isLoading.value = false;
+        homeController.changePage(0);
+      } else {
+        isLoading.value = false;
+        Get.snackbar(
+          "Hata",
+          "Post kaydedilemedi. Lütfen tekrar deneyin.",
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.red,
+          icon: const Icon(Icons.error),
+        );
         HomeController homeController = Get.find<HomeController>();
         FeedController feedController = Get.find<FeedController>();
         await feedController.fetchPosts();
         homeController.changePage(0);
       }
     } catch (e) {
-      // Handle the error
-      isLoading.value = false;
-      Get.snackbar(
-        "Hata",
-        "Post kaydedilemedi. Lütfen tekrar deneyin.",
-        snackPosition: SnackPosition.BOTTOM,
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
-        icon: const Icon(Icons.error),
-      );
+      print(e);
     }
   }
 }

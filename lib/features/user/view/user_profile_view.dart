@@ -90,20 +90,16 @@ class UserProfileView extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    onTap: () async {
-                                      UserProfileController controller2 = Get.put(UserProfileController());
-                                      String selectedUserId = controller.feedModel.value.data![index].user!.userId.toString();
-                                      controller2.userId = selectedUserId;
-                                      await controller2.fetchPosts(selectedUserId);
-                                      Get.to(UserProfileView());
-                                    },
-                                    child: CircleAvatar(
-                                      radius: 24,
-                                      backgroundImage: NetworkImage(
-                                        "${controller.feedModel.value.data?[index].user?.profileImageData}",
+                                  Stack(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 24,
+                                        backgroundImage: NetworkImage(
+                                          data?[index].user?.profileImageData ?? AssetConstants.defaultProfileImage,
+                                        ),
                                       ),
-                                    ),
+                                      getIconForPostType(data?[index].postTypeId),
+                                    ],
                                   ),
                                   const SizedBox(width: 10), // Boşluk ekledim
                                   Expanded(
@@ -141,7 +137,7 @@ class UserProfileView extends StatelessWidget {
                                                   const SizedBox(width: 5),
                                                   Flexible(
                                                     child: Text(
-                                                      "• 5Dk",
+                                                      "• ${data[index].createdAt}",
                                                       overflow: TextOverflow.ellipsis,
                                                       style: GoogleFonts.inter(
                                                         fontSize: 12,
@@ -195,6 +191,18 @@ class UserProfileView extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Widget getIconForPostType(int? postTypeId) {
+  if (postTypeId == 3) {
+    return SizedBox();
+  } else if (postTypeId == 2) {
+    return SvgPicture.asset(AssetConstants.iconInfo);
+  } else if (postTypeId == 1) {
+    return SvgPicture.asset(AssetConstants.iconQuestion);
+  } else {
+    return SizedBox();
   }
 }
 
