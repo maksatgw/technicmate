@@ -43,8 +43,8 @@ class PostAddController extends GetxController {
           backgroundColor: Colors.red,
           icon: const Icon(Icons.error),
         );
-        HomeController homeController = Get.find<HomeController>();
-        FeedController feedController = Get.find<FeedController>();
+        HomeController homeController = Get.put(HomeController());
+        FeedController feedController = Get.put(FeedController());
         await feedController.fetchPosts();
         homeController.changePage(0);
       }

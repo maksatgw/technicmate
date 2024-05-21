@@ -28,7 +28,7 @@ class UserProfileView extends StatelessWidget {
                     controller.userModel.value.data?.profileImageData ?? AssetConstants.defaultProfileImage,
                   ),
                 ),
-                UserProfileCustomStatic(count: controller.userModel.value.data?.noteCount ?? 0, title: "Not"),
+                Obx(() => UserProfileCustomStatic(count: controller.userModel.value.data?.noteCount ?? 0, title: "Not")),
                 UserProfileCustomStatic(count: controller.userModel.value.data?.followerCount ?? 0, title: "Takipçi"),
                 UserProfileCustomStatic(count: controller.userModel.value.data?.followedByCount ?? 0, title: "Takip"),
               ],
@@ -145,9 +145,17 @@ class UserProfileView extends StatelessWidget {
                                                 ],
                                               ),
                                             ),
-                                            SvgPicture.asset(
-                                              AssetConstants.threeDotsOption,
-                                            ),
+                                            // SvgPicture.asset(
+                                            //   AssetConstants.threeDotsOption,
+                                            // ),
+                                            data[index].user?.userId == controller.box.read("uid")
+                                                ? IconButton(
+                                                    onPressed: () async {
+                                                      await controller.removePost(data[index].postId, data[index].user!.userId.toString());
+                                                    },
+                                                    icon: const Icon(Icons.remove),
+                                                  )
+                                                : const SizedBox(),
                                           ],
                                         ),
                                         const SizedBox(height: 5),

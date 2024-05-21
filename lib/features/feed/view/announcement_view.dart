@@ -32,7 +32,7 @@ class AnnouncementView extends StatelessWidget {
             } else {
               return RefreshIndicator(
                 onRefresh: () async {
-                  await controller.fetchPosts();
+                  await controller.fetchAnnouncements();
                 },
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
@@ -48,26 +48,16 @@ class AnnouncementView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          InkWell(
-                            onTap: () async {
-                              UserProfileController controller2 = Get.put(UserProfileController());
-                              String selectedUserId = controller.model2.value.data![index].user!.userId.toString();
-                              controller2.userId = selectedUserId;
-                              await controller2.fetchPosts(selectedUserId);
-                              await controller2.fetchUserDetail(selectedUserId);
-                              Get.to(UserProfileView());
-                            },
-                            child: Stack(
-                              children: [
-                                CircleAvatar(
-                                  radius: 24,
-                                  backgroundImage: NetworkImage(
-                                    data?[index].user?.profileImageData ?? AssetConstants.defaultProfileImage,
-                                  ),
+                          Stack(
+                            children: [
+                              CircleAvatar(
+                                radius: 24,
+                                backgroundImage: NetworkImage(
+                                  data?[index].user?.profileImageData ?? AssetConstants.defaultProfileImage,
                                 ),
-                                getIconForPostType(data?[index].postTypeId),
-                              ],
-                            ),
+                              ),
+                              getIconForPostType(data?[index].postTypeId),
+                            ],
                           ),
                           const SizedBox(width: 10), // Boşluk ekledim
                           Expanded(

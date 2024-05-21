@@ -37,16 +37,18 @@ class FeedModel {
 class Data {
   String? text;
   int? postTypeId;
+  String? postId;
   int? postStatusId;
   List<Additionals>? additionals;
   Department? department;
   User? user;
   String? createdAt;
 
-  Data({this.text, this.postTypeId, this.postStatusId, this.additionals, this.department, this.user, this.createdAt});
+  Data({this.text, this.postTypeId, this.postStatusId, this.additionals, this.department, this.user, this.createdAt, this.postId});
 
   Data.fromJson(Map<String, dynamic> json) {
     text = json['text'];
+    postId = json['post_id'];
     postTypeId = json['post_type_id'];
     postStatusId = json['post_status_id'];
     if (json['additionals'] != null) {

@@ -43,6 +43,36 @@ class FeedController extends GetxController with GetSingleTickerProviderStateMix
     isLoading.value = false;
   }
 
+  Future<void> removePost(String? uid) async {
+    try {
+      isLoading.value = true;
+      var response = await service.removeData(uid);
+      if (response != null && response == true) {
+        await fetchPosts();
+        isLoading.value = false;
+        Get.snackbar(
+          "Başarılı",
+          "Post Başarıyla Kaldırıldı",
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.blue,
+          icon: const Icon(Icons.add_alert),
+        );
+      } else {
+        Get.snackbar(
+          "Hata",
+          "Sunucu hatası",
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.red,
+          icon: const Icon(Icons.add_alert),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> fetchAnnouncements() async {
     isLoading.value = true;
     var response = await service.getAnnouncements();

@@ -11,8 +11,27 @@ class FeedService {
       final response = await dio.get("/posts", options: Options(headers: {"authorization": "Bearer ${box.read("bearer")}"}));
       if (response.statusCode == 200) {
         var values = FeedModel.fromJson(response.data);
-        print(response.data);
         return values;
+      }
+    } on DioException catch (e) {
+      print(e);
+    }
+  }
+
+  Future<bool?> removeData(String? postId) async {
+    try {
+      final response = await dio.delete("/posts/$postId", 
+      options: Options(headers: 
+      {"authorization": "Bearer ${box.read("bearer")}"}));
+      if (response.statusCode == 200) {
+        var value = FeedModel.fromJson(response.data);
+        if (value.success == true) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
       }
     } on DioException catch (e) {
       print(e);

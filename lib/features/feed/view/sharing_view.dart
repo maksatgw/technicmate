@@ -116,9 +116,14 @@ class SharingView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    SvgPicture.asset(
-                                      AssetConstants.threeDotsOption,
-                                    ),
+                                    controller.model.value.data?[index].user?.userId == controller.box.read("uid")
+                                        ? IconButton(
+                                            onPressed: () async {
+                                              await controller.removePost(controller.model.value.data?[index].postId);
+                                            },
+                                            icon: const Icon(Icons.remove),
+                                          )
+                                        : const SizedBox(),
                                   ],
                                 ),
                                 const SizedBox(height: 5),
