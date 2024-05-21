@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:technicmate/constants/asset_constants.dart';
 import 'package:technicmate/features/auth/login/model/chek_email_model.dart';
 import 'package:technicmate/features/auth/login/view/login_password_view.dart';
 import 'package:technicmate/features/auth/login/model/user_request_model.dart';
@@ -71,7 +72,7 @@ class LoginController extends GetxController {
     } else {
       box.write("bearer", response?.data?.token);
       box.write("uid", response?.data?.userId);
-      box.write("uimage", response?.data?.user?.profileImageData);
+      box.write("uimage", response?.data?.user?.profileImageData ?? AssetConstants.defaultProfileImage);
       Get.snackbar(
         "Başarılı",
         "Hoş geldiniz",

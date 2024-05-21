@@ -32,7 +32,7 @@ class LoginPasswordView extends StatelessWidget {
                   minRadius: 50,
                   child: ClipOval(
                     child: Image.network(
-                      "${model.data?.profileImage.toString()}",
+                      model.data?.profileImage ?? AssetConstants.defaultProfileImage,
                       width: 150,
                       height: 150,
                       fit: BoxFit.cover,

@@ -25,6 +25,7 @@ class FeedView extends StatelessWidget {
               title: const Text("Çıkış"),
               onTap: () {
                 controller.box.remove("bearer");
+                controller.box.remove("uimage");
                 final find = Get.put(SplashController()).onInit();
                 Get.off(() => SplashView());
               },
