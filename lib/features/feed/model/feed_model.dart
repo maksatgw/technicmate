@@ -4,14 +4,14 @@ import 'package:technicmate/features/auth/model/user_model.dart';
 import 'package:technicmate/features/feed/model/additionals_model.dart';
 
 class FeedModel {
-  bool? succes;
+  bool? success;
   List<Data>? data;
   Error? error;
 
-  FeedModel({this.succes, this.data, this.error});
+  FeedModel({this.success, this.data, this.error});
 
   FeedModel.fromJson(Map<String, dynamic> json) {
-    succes = json['succes'];
+    success = json['success'];
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
@@ -23,7 +23,7 @@ class FeedModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['succes'] = this.succes;
+    data['success'] = this.success;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }

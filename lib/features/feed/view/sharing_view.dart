@@ -24,115 +24,120 @@ class SharingView extends StatelessWidget {
                 child: Text("Veri alınamadı"),
               );
             } else {
-              return ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                itemCount: controller.model.value.data?.length ?? 0,
-                separatorBuilder: (context, index) => const Divider(
-                  color: Palette.seperatorGrey,
-                ),
-                itemBuilder: (context, index) {
-                  var data = controller.model.value.data;
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            UserProfileController controller2 = Get.put(UserProfileController());
-                            String selectedUserId = controller.model.value.data![index].user!.userId.toString();
-                            controller2.userId = selectedUserId;
-                            await controller2.fetchPosts(selectedUserId);
-                            await controller2.fetchUserDetail(selectedUserId);
-                            Get.to(UserProfileView());
-                          },
-                          child: CircleAvatar(
-                            radius: 24,
-                            backgroundImage: NetworkImage(
-                              '${data?[index].user!.profileImageData}',
+              return RefreshIndicator(
+                onRefresh: () async {
+                  await controller.fetchPosts();
+                },
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: controller.model.value.data?.length ?? 0,
+                  separatorBuilder: (context, index) => const Divider(
+                    color: Palette.seperatorGrey,
+                  ),
+                  itemBuilder: (context, index) {
+                    var data = controller.model.value.data;
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              UserProfileController controller2 = Get.put(UserProfileController());
+                              String selectedUserId = controller.model.value.data![index].user!.userId.toString();
+                              controller2.userId = selectedUserId;
+                              await controller2.fetchPosts(selectedUserId);
+                              await controller2.fetchUserDetail(selectedUserId);
+                              Get.to(UserProfileView());
+                            },
+                            child: CircleAvatar(
+                              radius: 24,
+                              backgroundImage: NetworkImage(
+                                '${data?[index].user!.profileImageData}',
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 10), // Boşluk ekledim
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        Flexible(
-                                          flex: 2,
-                                          child: Text(
-                                            "${data![index].user?.firstname} ${data[index].user?.lastname} ",
-                                            style: GoogleFonts.inter(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 16,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 5),
-                                        Flexible(
-                                          flex: 1,
-                                          child: Text(
-                                            "${data[index].user?.email}",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              color: Palette.usernameGrey,
+                          const SizedBox(width: 10), // Boşluk ekledim
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Row(
+                                        children: [
+                                          Flexible(
+                                            flex: 2,
+                                            child: Text(
+                                              "${data![index].user?.firstname} ${data[index].user?.lastname} ",
+                                              style: GoogleFonts.inter(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 16,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(width: 5),
-                                        Flexible(
-                                          child: Text(
-                                            "• ${data[index].createdAt}",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: GoogleFonts.inter(
-                                              fontSize: 12,
-                                              color: Palette.usernameGrey,
+                                          const SizedBox(width: 5),
+                                          Flexible(
+                                            flex: 1,
+                                            child: Text(
+                                              "${data[index].user?.email}",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.inter(
+                                                fontSize: 12,
+                                                color: Palette.usernameGrey,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          const SizedBox(width: 5),
+                                          Flexible(
+                                            child: Text(
+                                              "• ${data[index].createdAt}",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.inter(
+                                                fontSize: 12,
+                                                color: Palette.usernameGrey,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  SvgPicture.asset(
-                                    AssetConstants.threeDotsOption,
+                                    SvgPicture.asset(
+                                      AssetConstants.threeDotsOption,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                if (data[index].text != null) ...[
+                                  Text(
+                                    data[index].text.toString(),
+                                    style: GoogleFonts.cabin(fontSize: 16),
+                                    textAlign: TextAlign.start,
                                   ),
                                 ],
-                              ),
-                              const SizedBox(height: 5),
-                              if (data[index].text != null) ...[
-                                Text(
-                                  data[index].text.toString(),
-                                  style: GoogleFonts.cabin(fontSize: 16),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ],
-                              const SizedBox(height: 10),
-                              if (data[index].additionals == null && data[index].additionals!.isEmpty) ...[
-                                Center(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      "https://pbs.twimg.com/media/GNyYwBeWYAAzq6f?format=jpg&name=4096x4096",
-                                      fit: BoxFit.contain,
+                                const SizedBox(height: 10),
+                                if (data[index].additionals == null && data[index].additionals!.isEmpty) ...[
+                                  Center(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.network(
+                                        "https://pbs.twimg.com/media/GNyYwBeWYAAzq6f?format=jpg&name=4096x4096",
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
                                   ),
-                                ),
+                                ],
                               ],
-                            ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                        ],
+                      ),
+                    );
+                  },
+                ),
               );
             }
           },
