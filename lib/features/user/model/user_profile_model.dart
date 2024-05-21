@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:technicmate/features/auth/model/department_model.dart';
 import 'package:technicmate/features/auth/model/error_model.dart';
 import 'package:technicmate/features/auth/model/university_model.dart';

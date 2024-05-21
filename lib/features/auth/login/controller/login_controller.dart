@@ -4,7 +4,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:technicmate/features/auth/login/model/chek_email_model.dart';
 import 'package:technicmate/features/auth/login/view/login_password_view.dart';
 import 'package:technicmate/features/auth/login/model/user_request_model.dart';
-import 'package:technicmate/features/auth/service/login_service.dart';
+import 'package:technicmate/features/auth/login/service/login_service.dart';
+import 'package:technicmate/features/auth/register/controller/register_controller.dart';
+import 'package:technicmate/features/auth/register/view/register_name_view.dart';
 import 'package:technicmate/features/home/view/home_view.dart';
 
 class LoginController extends GetxController {
@@ -27,6 +29,19 @@ class LoginController extends GetxController {
     if (response?.success == true) {
       if (response?.data?.isLogin == true && response != null) {
         Get.to(() => LoginPasswordView(model: response));
+      } else if (response?.data?.isRegister == true) {
+        Get.snackbar(
+          "Bilgilendirme",
+          "Sistemde kaydınız bulunmamaktadır. Bir hesap oluşturabilirsiniz.",
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.blue,
+          icon: const Icon(Icons.add_alert),
+        );
+        RegisterController registerController = Get.put(RegisterController());
+        registerController.universityId = response?.data?.university?.universityId;
+        registerController.email = response?.data?.email;
+        Get.to(() => RegisterNameView());
       }
     } else {
       Get.snackbar(
