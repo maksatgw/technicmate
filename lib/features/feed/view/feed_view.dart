@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/auth/login/view/login_view.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
+import 'package:technicmate/features/feed/view/announcement_view.dart';
 import 'package:technicmate/features/feed/view/sharing_view.dart';
 import 'package:technicmate/features/splash/controller/splash_controller.dart';
 import 'package:technicmate/features/splash/view/splash_view.dart';
@@ -91,7 +92,7 @@ class FeedView extends StatelessWidget {
             ),
             Tab(
               child: Text(
-                "Etkinlikler",
+                "Duyurular",
                 style: GoogleFonts.cabin(fontSize: 20),
               ),
             ),
@@ -102,7 +103,7 @@ class FeedView extends StatelessWidget {
         controller: controller.tabController,
         children: [
           SharingView(),
-          SharingView(),
+          AnnouncementView(),
         ],
       ),
     );

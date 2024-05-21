@@ -10,11 +10,13 @@ class FeedController extends GetxController with GetSingleTickerProviderStateMix
   final box = GetStorage();
   var isLoading = false.obs;
   var model = FeedModel().obs;
+  var model2 = FeedModel().obs;
   var images = "".obs;
   @override
   void onInit() async {
     tabController = TabController(length: 2, vsync: this);
     await fetchPosts();
+    await fetchAnnouncements();
     images.value = box.read("uimage");
     print(images);
     super.onInit();
@@ -25,6 +27,27 @@ class FeedController extends GetxController with GetSingleTickerProviderStateMix
     var response = await service.getPosts();
     if (response != null) {
       model.value = response;
+      isLoading.value = false;
+    }
+    if (response == null) {
+      Get.snackbar(
+        "Hata",
+        "Sunucu hatası",
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+        icon: const Icon(Icons.add_alert),
+      );
+      isLoading.value = false;
+    }
+    isLoading.value = false;
+  }
+
+  Future<void> fetchAnnouncements() async {
+    isLoading.value = true;
+    var response = await service.getAnnouncements();
+    if (response != null) {
+      model2.value = response;
       isLoading.value = false;
     }
     if (response == null) {

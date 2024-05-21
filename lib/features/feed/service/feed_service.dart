@@ -18,4 +18,23 @@ class FeedService {
       print(e);
     }
   }
+
+  Future<FeedModel?> getAnnouncements() async {
+    try {
+      final response = await dio.get(
+        "/posts",
+        options: Options(
+          headers: {"authorization": "Bearer ${box.read("bearer")}"},
+        ),
+        queryParameters: {'post_type_id': 4},
+      );
+      if (response.statusCode == 200) {
+        var values = FeedModel.fromJson(response.data);
+        print(response.data);
+        return values;
+      }
+    } on DioException catch (e) {
+      print(e);
+    }
+  }
 }
