@@ -51,11 +51,16 @@ class SharingView extends StatelessWidget {
                               await controller2.fetchUserDetail(selectedUserId);
                               Get.to(UserProfileView());
                             },
-                            child: CircleAvatar(
-                              radius: 24,
-                              backgroundImage: NetworkImage(
-                                '${data?[index].user!.profileImageData}',
-                              ),
+                            child: Stack(
+                              children: [
+                                CircleAvatar(
+                                  radius: 24,
+                                  backgroundImage: NetworkImage(
+                                    data?[index].user?.profileImageData ?? AssetConstants.defaultProfileImage,
+                                  ),
+                                ),
+                                getIconForPostType(data?[index].postTypeId),
+                              ],
                             ),
                           ),
                           const SizedBox(width: 10), // Boşluk ekledim
@@ -144,5 +149,17 @@ class SharingView extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Widget getIconForPostType(int? postTypeId) {
+  if (postTypeId == 3) {
+    return SizedBox();
+  } else if (postTypeId == 2) {
+    return SvgPicture.asset(AssetConstants.iconInfo);
+  } else if (postTypeId == 1) {
+    return SvgPicture.asset(AssetConstants.iconQuestion);
+  } else {
+    return SizedBox();
   }
 }

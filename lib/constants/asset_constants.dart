@@ -16,6 +16,8 @@ class AssetConstants {
   static const String bottomNavMessagePassive = '$_svgsPath/bottom_navbar/ic_message_passive.svg';
   static const String bottomNavBarCenterAdd = '$_svgsPath/bottom_navbar/ic_add_center.svg';
 
+  static const String defaultProfileImage = "https://cdn.iconscout.com/icon/free/png-512/free-person-2653741-2202553.png?f=webp&w=256";
+
   static const String iconQuestion = '$_svgsPath/ic_question.svg';
   static const String iconInfo = '$_svgsPath/ic_info.svg';
   static const String uniCap = '$_svgsPath/ic_unicap.svg';
