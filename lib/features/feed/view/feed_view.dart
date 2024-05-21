@@ -8,6 +8,8 @@ import 'package:technicmate/features/feed/controller/feed_controller.dart';
 import 'package:technicmate/features/feed/view/sharing_view.dart';
 import 'package:technicmate/features/splash/controller/splash_controller.dart';
 import 'package:technicmate/features/splash/view/splash_view.dart';
+import 'package:technicmate/features/user/controller/user_profile_controller.dart';
+import 'package:technicmate/features/user/view/user_profile_view.dart';
 
 class FeedView extends StatelessWidget {
   FeedView({super.key});
@@ -46,14 +48,24 @@ class FeedView extends StatelessWidget {
         actions: [
           Obx(() {
             if (controller.images.isNotEmpty) {
-              return CircleAvatar(
-                minRadius: 16,
-                child: ClipOval(
-                  child: Image.network(
-                    controller.images.value,
-                    width: 40,
-                    height: 40,
-                    fit: BoxFit.cover,
+              return InkWell(
+                onTap: () async {
+                  UserProfileController controller2 = Get.put(UserProfileController());
+                  String selectedUserId = controller.box.read('uid');
+                  controller2.userId = selectedUserId;
+                  await controller2.fetchPosts(selectedUserId);
+                  await controller2.fetchUserDetail(selectedUserId);
+                  Get.to(UserProfileView());
+                },
+                child: CircleAvatar(
+                  minRadius: 16,
+                  child: ClipOval(
+                    child: Image.network(
+                      controller.images.value,
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               );
