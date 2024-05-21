@@ -102,7 +102,9 @@ class RegisterNameView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       width: 110,
                       height: 34,
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.back();
+                      },
                       child: Text(
                         "Geri dön",
                         style: GoogleFonts.inter(fontSize: 14),

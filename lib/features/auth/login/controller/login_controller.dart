@@ -22,13 +22,17 @@ class LoginController extends GetxController {
   final box = GetStorage();
   CheckEmailModel model = CheckEmailModel();
 
+  //Yükleme esnasında olduğumuzu kullanıcıya belirtmemize yarayan boolean değeri.
+  var isLoading = false.obs;
   //Void tipinde asenkron bir metot.
   //Diğer featurelar eklendiğinde değişiklikler yapılacak.
   Future<void> checkEmail() async {
+    isLoading.value = true;
     req.email = emailController.text;
     var response = await service.checkEmail(req);
     if (response?.success == true) {
       if (response?.data?.isLogin == true && response != null) {
+        isLoading.value = false;
         Get.to(() => LoginPasswordView(model: response));
       } else if (response?.data?.isRegister == true) {
         Get.snackbar(
@@ -42,9 +46,11 @@ class LoginController extends GetxController {
         RegisterController registerController = Get.put(RegisterController());
         registerController.universityId = response?.data?.university?.universityId;
         registerController.email = response?.data?.email;
+        isLoading.value = false;
         Get.to(() => RegisterNameView());
       }
     } else {
+      isLoading.value = true;
       Get.snackbar(
         "Hata",
         "Bu mail ile sisteme kayıt olamazsınız.",
@@ -53,17 +59,20 @@ class LoginController extends GetxController {
         backgroundColor: Colors.red,
         icon: const Icon(Icons.add_alert),
       );
+      isLoading.value = false;
     }
   }
 
   Future<void> postUser() async {
+    isLoading.value = true;
     req.email = emailController.text;
     req.password = passwordController.text;
     var response = await service.postUser(req);
     if (response?.success == false) {
+      isLoading.value = false;
       Get.snackbar(
         "Hata",
-        "Bir sorun ile karşılaşıldı. Lütfen tekrar deneyin.",
+        response?.error?.message ?? "Bir hata oluştu.",
         snackPosition: SnackPosition.BOTTOM,
         colorText: Colors.white,
         backgroundColor: Colors.red,

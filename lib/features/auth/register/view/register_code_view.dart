@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/theme/theme.dart';
@@ -80,7 +81,9 @@ class RegisterCodeView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       width: 110,
                       height: 34,
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.back();
+                      },
                       child: Text(
                         "Geri dön",
                         style: GoogleFonts.inter(fontSize: 14),

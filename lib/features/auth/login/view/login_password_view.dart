@@ -110,20 +110,28 @@ class LoginPasswordView extends StatelessWidget {
                         style: GoogleFonts.inter(fontSize: 14),
                       ),
                     ),
-                    GlowButton(
-                      color: Palette.loginButtonBlueColor,
-                      glowColor: Palette.loginButtonBlueColor,
-                      borderRadius: BorderRadius.circular(16),
-                      width: 110,
-                      height: 34,
-                      onPressed: () {
-                        print(controller.emailController.text + " " + controller.passwordController.text);
-                        controller.postUser();
+                    Obx(
+                      () {
+                        if (controller.isLoading.isFalse) {
+                          return GlowButton(
+                            color: Palette.loginButtonBlueColor,
+                            glowColor: Palette.loginButtonBlueColor,
+                            borderRadius: BorderRadius.circular(16),
+                            width: 110,
+                            height: 34,
+                            onPressed: () {
+                              print(controller.emailController.text + " " + controller.passwordController.text);
+                              controller.postUser();
+                            },
+                            child: Text(
+                              "Giriş",
+                              style: GoogleFonts.inter(fontSize: 14),
+                            ),
+                          );
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
                       },
-                      child: Text(
-                        "Giriş",
-                        style: GoogleFonts.inter(fontSize: 14),
-                      ),
                     ),
                   ],
                 ),
