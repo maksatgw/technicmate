@@ -20,9 +20,8 @@ class PostAddController extends GetxController {
       isLoading.value = true;
       var response = await service.postData(req);
       if (response?.success == true) {
-        HomeController homeController = Get.find<HomeController>();
-        FeedController feedController = Get.find<FeedController>();
-        await feedController.fetchPosts();
+        var homeController = Get.put(HomeController());
+        var feedController = Get.put(FeedController());
         Get.snackbar(
           "Başarılı",
           "Postunuz kaydedildi.",
@@ -31,8 +30,9 @@ class PostAddController extends GetxController {
           backgroundColor: Colors.blue,
           icon: const Icon(Icons.add_alert),
         );
-        isLoading.value = false;
+        await feedController.fetchPosts();
         homeController.changePage(0);
+        isLoading.value = false;
       } else {
         isLoading.value = false;
         Get.snackbar(
@@ -43,8 +43,9 @@ class PostAddController extends GetxController {
           backgroundColor: Colors.red,
           icon: const Icon(Icons.error),
         );
-        HomeController homeController = Get.put(HomeController());
-        FeedController feedController = Get.put(FeedController());
+        var homeController = Get.put(HomeController());
+        var feedController = Get.put(FeedController());
+
         await feedController.fetchPosts();
         homeController.changePage(0);
       }

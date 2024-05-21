@@ -8,6 +8,8 @@ import 'package:technicmate/features/auth/register/view/register_faculty_view.da
 import 'package:technicmate/features/auth/register/view/register_gender_view.dart';
 import 'package:technicmate/features/auth/register/view/register_name_view.dart';
 import 'package:technicmate/features/auth/register/view/register_password_view.dart';
+import 'package:technicmate/features/feed/controller/feed_controller.dart';
+import 'package:technicmate/features/home/controller/home_controller.dart';
 import 'package:technicmate/features/splash/view/splash_view.dart';
 import 'package:technicmate/theme/theme.dart';
 
@@ -19,8 +21,19 @@ void main() async {
       darkTheme: AppTheme.theme,
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
+      initialBinding: InitialScreenBindings(),
       getPages: AppPages.pages,
       home: SplashView(),
     ),
   );
+}
+
+class InitialScreenBindings implements Bindings {
+  InitialScreenBindings();
+
+  @override
+  void dependencies() {
+    Get.put(() => HomeController());
+    Get.put(() => FeedController());
+  }
 }
