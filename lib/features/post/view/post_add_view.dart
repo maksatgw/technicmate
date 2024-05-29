@@ -51,9 +51,21 @@ class PostAddView extends StatelessWidget {
                 child: Wrap(
                   spacing: 5,
                   children: [
-                    PostAddCustomChip(selectedValue: controller.selectedValue, index: 1, title: "Soru", icon: AssetConstants.iconQuestion),
-                    PostAddCustomChip(selectedValue: controller.selectedValue, index: 2, title: "Bilgi", icon: AssetConstants.iconInfo),
-                    PostAddCustomChip(selectedValue: controller.selectedValue, index: 3, title: "Hiçbiri", icon: ""),
+                    PostAddCustomChip(
+                        selectedValue: controller.selectedValue,
+                        index: 1,
+                        title: "Soru",
+                        icon: AssetConstants.iconQuestion),
+                    PostAddCustomChip(
+                        selectedValue: controller.selectedValue,
+                        index: 2,
+                        title: "Bilgi",
+                        icon: AssetConstants.iconInfo),
+                    PostAddCustomChip(
+                        selectedValue: controller.selectedValue,
+                        index: 3,
+                        title: "Hiçbiri",
+                        icon: ""),
                   ],
                 ),
               ),
@@ -108,7 +120,8 @@ class PostAddCustomChip extends StatelessWidget {
       () => FilterChip(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         padding: const EdgeInsets.all(5),
-        backgroundColor: selectedValue.value == index ? Colors.white : Colors.grey,
+        backgroundColor:
+            selectedValue.value == index ? Colors.white : Colors.grey,
         label: Wrap(
           spacing: 5,
           children: [

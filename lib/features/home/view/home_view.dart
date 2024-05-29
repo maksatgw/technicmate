@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:technicmate/constants/asset_constants.dart';
 import 'package:technicmate/features/home/controller/home_controller.dart';
+import 'package:technicmate/features/post/view/post_add_view.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class HomeView extends StatelessWidget {
@@ -23,28 +24,37 @@ class HomeView extends StatelessWidget {
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                controller.currentIndex.value == 0 ? AssetConstants.bottomNavHomeActive : AssetConstants.bottomNavHomePassive,
+                controller.currentIndex.value == 0
+                    ? AssetConstants.bottomNavHomeActive
+                    : AssetConstants.bottomNavHomePassive,
               ),
             ),
             BottomNavigationBarItem(
-              icon: Container(
-                height: 66,
-                width: 66,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: SvgPicture.asset(
-                    AssetConstants.bottomNavBarCenterAdd,
+              icon: InkWell(
+                onTap: () {
+                  Get.to(PostAddView());
+                },
+                child: Container(
+                  height: 66,
+                  width: 66,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: SvgPicture.asset(
+                      AssetConstants.bottomNavBarCenterAdd,
+                    ),
                   ),
                 ),
               ),
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                controller.currentIndex.value == 2 ? AssetConstants.bottomNavSearchActive : AssetConstants.bottomNavSearchPassive,
+                controller.currentIndex.value == 2
+                    ? AssetConstants.bottomNavSearchActive
+                    : AssetConstants.bottomNavSearchPassive,
               ),
             ),
           ],
