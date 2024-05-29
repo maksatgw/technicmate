@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
-import 'package:technicmate/features/home/controller/home_controller.dart';
 import 'package:technicmate/features/home/view/home_view.dart';
 import 'package:technicmate/features/post/model/post_create_model.dart';
 import 'package:technicmate/features/post/service/post_add_service.dart';
 
 class PostAddController extends GetxController {
   RxBool isSelected = false.obs;
-  final RxInt selectedValue = 1.obs;
+  final RxInt selectedValue = 3.obs;
   TextEditingController postBodyController = TextEditingController();
   final PostAddService service = PostAddService();
   PostCreateModel req = PostCreateModel();
@@ -17,7 +16,7 @@ class PostAddController extends GetxController {
 
   Future<void> postData() async {
     try {
-      req.postTypeId = selectedValue.value ?? 3;
+      req.postTypeId = selectedValue.value;
       req.text = postBodyController.text;
       isLoading.value = true;
       var response = await service.postData(req);

@@ -13,17 +13,18 @@ class UserProfileService {
       final response = await dio.get(
         "/users/$userId",
         options: Options(
-          headers: {"authorization": "Bearer ${box.read("bearer")}"},
+          headers: {
+            "authorization": "Bearer ${box.read("bearer")}",
+          },
         ),
       );
       if (response.statusCode == 200) {
-        print(response.data);
-        // var values = UserProfileModel.fromJson(response.data);
         return UserProfileModel.fromJson(response.data);
       }
     } on DioException catch (e) {
       print(e);
     }
+    return null;
   }
 
   Future<FeedModel?> getPostsByUserId(String userId) async {
@@ -34,7 +35,9 @@ class UserProfileService {
           'user_id': userId,
         },
         options: Options(
-          headers: {"authorization": "Bearer ${box.read("bearer")}"},
+          headers: {
+            "authorization": "Bearer ${box.read("bearer")}",
+          },
         ),
       );
       if (response.statusCode == 200) {
@@ -44,5 +47,6 @@ class UserProfileService {
     } on DioException catch (e) {
       print(e);
     }
+    return null;
   }
 }

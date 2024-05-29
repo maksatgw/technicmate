@@ -47,9 +47,12 @@ class LoginView extends StatelessWidget {
                         if (!value.isEmail) {
                           return "Lütfen doğru bir email girin.";
                         }
+                        return null;
                       },
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: BorderSide.none),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: BorderSide.none),
                         filled: true,
                         fillColor: Palette.authTextFieldFillColor,
                         hintText: "Yazmak için tıkla...",

@@ -3,11 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
-import 'package:technicmate/features/auth/login/view/login_view.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
 import 'package:technicmate/features/feed/view/announcement_view.dart';
 import 'package:technicmate/features/feed/view/sharing_view.dart';
-import 'package:technicmate/features/splash/controller/splash_controller.dart';
 import 'package:technicmate/features/splash/view/splash_view.dart';
 import 'package:technicmate/features/user/controller/user_profile_controller.dart';
 import 'package:technicmate/features/user/view/user_profile_view.dart';
@@ -29,7 +27,6 @@ class FeedView extends StatelessWidget {
               onTap: () {
                 controller.box.remove("bearer");
                 controller.box.remove("uimage");
-                final find = Get.put(SplashController()).onInit();
                 Get.off(() => SplashView());
               },
             )
@@ -51,7 +48,8 @@ class FeedView extends StatelessWidget {
             if (controller.images.isNotEmpty) {
               return InkWell(
                 onTap: () async {
-                  UserProfileController controller2 = Get.put(UserProfileController());
+                  UserProfileController controller2 =
+                      Get.put(UserProfileController());
                   String selectedUserId = controller.box.read('uid');
                   controller2.userId = selectedUserId;
                   await controller2.fetchPosts(selectedUserId);
@@ -76,10 +74,10 @@ class FeedView extends StatelessWidget {
                 child: Text("Öğe yok"),
               );
             } else {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }
           }),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
         ],
         bottom: TabBar(
           controller: controller.tabController,

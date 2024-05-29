@@ -12,7 +12,7 @@ import 'package:technicmate/theme/theme.dart';
 class RegisterFacultyView extends StatelessWidget {
   RegisterFacultyView({super.key});
   final controller = Get.put(RegisterController());
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +44,8 @@ class RegisterFacultyView extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   "Hoş geldin!",
-                  style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w100),
+                  style: GoogleFonts.inter(
+                      fontSize: 20, fontWeight: FontWeight.w100),
                 ),
               ],
             ),
@@ -69,7 +70,8 @@ class RegisterFacultyView extends StatelessWidget {
                           height: 216,
                           padding: const EdgeInsets.only(top: 6.0),
                           margin: EdgeInsets.only(
-                            bottom: MediaQuery.of(Get.context!).viewInsets.bottom,
+                            bottom:
+                                MediaQuery.of(Get.context!).viewInsets.bottom,
                           ),
                           color: Palette.black,
                           child: SafeArea(
@@ -77,16 +79,42 @@ class RegisterFacultyView extends StatelessWidget {
                             child: CupertinoPicker(
                               itemExtent: 40.0,
                               onSelectedItemChanged: (index) {
-                                controller.departId.value = controller.registerDepartmentModel.value.data?[index].departmentId.toString() ?? "";
-                                controller.departName.value = controller.registerDepartmentModel.value.data?[index].title.toString() ?? "";
+                                controller.departId.value = controller
+                                        .registerDepartmentModel
+                                        .value
+                                        .data?[index]
+                                        .departmentId
+                                        .toString() ??
+                                    "";
+                                controller.departName.value = controller
+                                        .registerDepartmentModel
+                                        .value
+                                        .data?[index]
+                                        .title
+                                        .toString() ??
+                                    "";
                               },
                               children: List.generate(
-                                controller.registerDepartmentModel.value.data?.length ?? 0,
+                                controller.registerDepartmentModel.value.data
+                                        ?.length ??
+                                    0,
                                 (index) => Center(
                                   child: InkWell(
                                     onTap: () {
-                                      controller.departId.value = controller.registerDepartmentModel.value.data?[index].departmentId.toString() ?? "";
-                                      controller.departName.value = controller.registerDepartmentModel.value.data?[index].title.toString() ?? "";
+                                      controller.departId.value = controller
+                                              .registerDepartmentModel
+                                              .value
+                                              .data?[index]
+                                              .departmentId
+                                              .toString() ??
+                                          "";
+                                      controller.departName.value = controller
+                                              .registerDepartmentModel
+                                              .value
+                                              .data?[index]
+                                              .title
+                                              .toString() ??
+                                          "";
                                       Get.back();
                                     },
                                     child: Text(
@@ -110,7 +138,9 @@ class RegisterFacultyView extends StatelessWidget {
                       child: Center(
                         child: Obx(
                           () => Text(
-                            controller.departName == "" ? "Bölümünü Seç" : "${controller.departName}",
+                            controller.departName.value == ""
+                                ? "Bölümünü Seç"
+                                : controller.departName.value,
                             style: GoogleFonts.inter(fontSize: 13),
                           ),
                         ),
@@ -147,7 +177,7 @@ class RegisterFacultyView extends StatelessWidget {
                       width: 110,
                       height: 34,
                       onPressed: () {
-                        if (controller.departId.value == null || controller.departId.value.isEmpty) {
+                        if (controller.departId.value.isEmpty) {
                           Get.snackbar(
                             "Hata",
                             "Lütfen bir bölüm seçin.",
@@ -157,7 +187,6 @@ class RegisterFacultyView extends StatelessWidget {
                             icon: const Icon(Icons.add_alert),
                           );
                         } else {
-                          print(controller.departId);
                           Get.to(() => RegisterPasswordView());
                         }
                       },

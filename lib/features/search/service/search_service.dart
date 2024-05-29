@@ -19,12 +19,11 @@ class SearchService {
         ),
       );
       if (response.statusCode == 200) {
-        print(response.data);
-        var values = UserSearchModel.fromJson(response.data);
-        return values;
+        return UserSearchModel.fromJson(response.data);
       }
     } on DioException catch (e) {
       print(e);
     }
+    return null;
   }
 }

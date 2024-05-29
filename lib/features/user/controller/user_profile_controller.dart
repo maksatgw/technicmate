@@ -7,7 +7,8 @@ import 'package:technicmate/features/feed/service/feed_service.dart';
 import 'package:technicmate/features/user/model/user_profile_model.dart';
 import 'package:technicmate/features/user/service/user_profile_service.dart';
 
-class UserProfileController extends GetxController with GetSingleTickerProviderStateMixin {
+class UserProfileController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   late TabController tabController;
   final UserProfileService service = UserProfileService();
   final FeedService service2 = FeedService();
@@ -48,7 +49,7 @@ class UserProfileController extends GetxController with GetSingleTickerProviderS
   Future<void> removePost(String? uid, String userId) async {
     try {
       isLoading.value = true;
-      var response = await service2.removeData(uid);
+      var response = await service2.removePost(uid);
       if (response != null && response == true) {
         await fetchPosts(userId);
         await fetchUserDetail(userId);

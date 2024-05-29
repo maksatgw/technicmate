@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
-import 'package:technicmate/features/auth/login/view/login_view.dart';
 import 'package:technicmate/features/auth/register/controller/register_controller.dart';
 import 'package:technicmate/features/auth/register/view/register_code_view.dart';
 import 'package:technicmate/theme/theme.dart';
@@ -45,7 +44,8 @@ class RegisterPasswordView extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   "Hoş geldin!",
-                  style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w100),
+                  style: GoogleFonts.inter(
+                      fontSize: 20, fontWeight: FontWeight.w100),
                 ),
               ],
             ),
@@ -66,7 +66,9 @@ class RegisterPasswordView extends StatelessWidget {
                       validator: controller.validatePassword,
                       controller: controller.passwordController,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: BorderSide.none),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: BorderSide.none),
                         filled: true,
                         fillColor: Palette.authTextFieldFillColor,
                         hintText: "Yazmak için tıkla...",
@@ -105,8 +107,6 @@ class RegisterPasswordView extends StatelessWidget {
                       height: 34,
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          // var result = await controller.registerCodePost();
-                          // var result2 = await controller.registerUser();
                           Get.to(() => RegisterCodeView());
                         }
                       },

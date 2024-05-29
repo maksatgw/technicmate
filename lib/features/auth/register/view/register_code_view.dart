@@ -44,7 +44,8 @@ class RegisterCodeView extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   "Mailine ilettiğimiz kodu girebilirsin!",
-                  style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w100),
+                  style: GoogleFonts.inter(
+                      fontSize: 20, fontWeight: FontWeight.w100),
                 ),
               ],
             ),
@@ -70,7 +71,9 @@ class RegisterCodeView extends StatelessWidget {
                         }
                       },
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: BorderSide.none),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: BorderSide.none),
                         filled: true,
                         fillColor: Palette.authTextFieldFillColor,
                         hintText: "Yazmak için tıkla...",
@@ -109,8 +112,8 @@ class RegisterCodeView extends StatelessWidget {
                       height: 34,
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          var result = await controller.registerCodePost();
-                          var result2 = await controller.registerUser();
+                          await controller.registerCodePost();
+                          await controller.registerUser();
                           Get.offAll(() => LoginView());
                         }
                       },

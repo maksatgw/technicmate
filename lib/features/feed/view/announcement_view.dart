@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
-import 'package:technicmate/features/user/controller/user_profile_controller.dart';
-import 'package:technicmate/features/user/view/user_profile_view.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class AnnouncementView extends StatelessWidget {
@@ -43,7 +41,8 @@ class AnnouncementView extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var data = controller.model2.value.data;
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +52,8 @@ class AnnouncementView extends StatelessWidget {
                               CircleAvatar(
                                 radius: 24,
                                 backgroundImage: NetworkImage(
-                                  data?[index].user?.profileImageData ?? AssetConstants.defaultProfileImage,
+                                  data?[index].user?.profileImageData ??
+                                      AssetConstants.defaultProfileImage,
                                 ),
                               ),
                               getIconForPostType(data?[index].postTypeId),
@@ -120,7 +120,8 @@ class AnnouncementView extends StatelessWidget {
                                   ),
                                 ],
                                 const SizedBox(height: 10),
-                                if (data[index].additionals == null && data[index].additionals!.isEmpty) ...[
+                                if (data[index].additionals == null &&
+                                    data[index].additionals!.isEmpty) ...[
                                   Center(
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),

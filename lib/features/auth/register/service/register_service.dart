@@ -10,36 +10,38 @@ class RegisterService {
     try {
       final response = await dio.get("/universities/$uniId/departments");
       if (response.statusCode == 200) {
-        print(response.data);
         return RegisterDepartmentModel.fromJson(response.data);
       }
       return null;
     } on DioException catch (e) {
       print(e);
     }
+    return null;
   }
 
   Future<RegisterCodeReturnModel?> registerPostModel(RegisterModel req) async {
     try {
       final response = await dio.post('/auth/register/', data: req.toJson());
       if (response.statusCode == 200) {
-        print(response.data);
         return RegisterCodeReturnModel.fromJsonRegister(response.data);
       }
     } on DioException catch (e) {
       print(e);
     }
+    return null;
   }
 
-  Future<RegisterCodeReturnModel?> registerCodePost(RegisterCodeModel req) async {
+  Future<RegisterCodeReturnModel?> registerCodePost(
+      RegisterCodeModel req) async {
     try {
-      final response = await dio.post('/auth/register/code', data: req.toJson());
+      final response =
+          await dio.post('/auth/register/code', data: req.toJson());
       if (response.statusCode == 200) {
-        print(response.data);
         return RegisterCodeReturnModel.fromJson(response.data);
       }
     } on DioException catch (e) {
       print(e);
     }
+    return null;
   }
 }

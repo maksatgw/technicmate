@@ -15,12 +15,11 @@ class LoginService {
     try {
       //response'umuz dio kütüphanesinin post özelliği ile geliyor.
       //istek yapacağımız endpoint ve göndereceğimiz datayı json'a dönüştürerek veriyoruz.
-      final response = await dio.post('/auth/check-email', data: req.toCheckEmailJson());
+      final response =
+          await dio.post('/auth/check-email', data: req.toCheckEmailJson());
       //response'tan gelen status code'u alıyoruz.
       if (response.statusCode == 200) {
         //Her şey yolunda gittiği takdirde
-        final body = response.data;
-        print(body);
         //CheckEmailModel fromJson metoduna mapleyerek return ediyoruz.
         return CheckEmailModel.fromJson(response.data);
       }
@@ -28,6 +27,7 @@ class LoginService {
     } on DioException catch (e) {
       print(e);
     }
+    return null;
   }
 
   //postUser Future tipinde geriye LoginModel dönen asenkron bir metot
@@ -41,9 +41,6 @@ class LoginService {
       //response'tan gelen status code'u alıyoruz.
       if (response.statusCode == 200) {
         //Her şey yolunda gittiği takdirde
-        final body = response.data;
-        //Debugging adına duruyor kaldırılacak.
-        print(body);
         //LoginModelimizdeki fromJson metoduna mapleyerek return ediyoruz.
         return LoginModel.fromJson(response.data);
       }
@@ -51,5 +48,6 @@ class LoginService {
     } on DioException catch (e) {
       print(e);
     }
+    return null;
   }
 }
