@@ -1,11 +1,11 @@
-import 'package:technicmate/features/auth/model/department_model.dart';
-import 'package:technicmate/features/auth/model/error_model.dart';
-import 'package:technicmate/features/auth/model/university_model.dart';
+import 'package:technicmate/common/models/department_model.dart';
+import 'package:technicmate/common/models/error_model.dart';
+import 'package:technicmate/common/models/university_model.dart';
 
 class UserSearchModel {
   bool? success;
   List<Data>? data;
-  Error? error;
+  ErrorModel? error;
 
   UserSearchModel({this.success, this.data, this.error});
 
@@ -17,7 +17,8 @@ class UserSearchModel {
         data!.add(new Data.fromJson(v));
       });
     }
-    error = json['error'] != null ? new Error.fromJson(json['error']) : null;
+    error =
+        json['error'] != null ? new ErrorModel.fromJson(json['error']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -44,7 +45,16 @@ class Data {
   University? university;
   Department? department;
 
-  Data({this.userId, this.profileImageData, this.email, this.firstname, this.lastname, this.isFollow, this.isFollower, this.university, this.department});
+  Data(
+      {this.userId,
+      this.profileImageData,
+      this.email,
+      this.firstname,
+      this.lastname,
+      this.isFollow,
+      this.isFollower,
+      this.university,
+      this.department});
 
   Data.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
@@ -54,8 +64,12 @@ class Data {
     lastname = json['lastname'];
     isFollow = json['is_follow'];
     isFollower = json['is_follower'];
-    university = json['university'] != null ? new University.fromJson(json['university']) : null;
-    department = json['department'] != null ? new Department.fromJson(json['department']) : null;
+    university = json['university'] != null
+        ? new University.fromJson(json['university'])
+        : null;
+    department = json['department'] != null
+        ? new Department.fromJson(json['department'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

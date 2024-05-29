@@ -24,10 +24,10 @@ class LoginController extends GetxController {
 
   //Yükleme esnasında olduğumuzu kullanıcıya belirtmemize yarayan boolean değeri.
   var isLoading = false.obs;
+
   //Void tipinde asenkron bir metot.
-  //Diğer featurelar eklendiğinde değişiklikler yapılacak.
   Future<void> checkEmail() async {
-    isLoading.value = true;
+    //isLoading de
     req.email = emailController.text;
     var response = await service.checkEmail(req);
     if (response?.success == true) {
@@ -44,7 +44,8 @@ class LoginController extends GetxController {
           icon: const Icon(Icons.add_alert),
         );
         RegisterController registerController = Get.put(RegisterController());
-        registerController.universityId = response?.data?.university?.universityId;
+        registerController.universityId =
+            response?.data?.university?.universityId;
         registerController.email = response?.data?.email;
         isLoading.value = false;
         Get.to(() => RegisterNameView());
@@ -63,7 +64,7 @@ class LoginController extends GetxController {
     }
   }
 
-  Future<void> postUser() async {
+  Future<void> checkUser() async {
     isLoading.value = true;
     req.email = emailController.text;
     req.password = passwordController.text;
@@ -81,7 +82,11 @@ class LoginController extends GetxController {
     } else {
       box.write("bearer", response?.data?.token);
       box.write("uid", response?.data?.userId);
-      box.write("uimage", response?.data?.user?.profileImageData ?? AssetConstants.defaultProfileImage);
+      box.write(
+        "uimage",
+        response?.data?.user?.profileImageData ??
+            AssetConstants.defaultProfileImage,
+      );
       Get.snackbar(
         "Başarılı",
         "Hoş geldiniz",
@@ -90,7 +95,7 @@ class LoginController extends GetxController {
         backgroundColor: Colors.blue,
         icon: const Icon(Icons.add_alert),
       );
-      Get.offAll(HomeView());
+      Get.offAll(() => HomeView());
     }
   }
 }

@@ -7,7 +7,14 @@ class Department {
   String? updatedAt;
   String? createdAt;
 
-  Department({this.departmentId, this.universityId, this.title, this.degree, this.isActive, this.updatedAt, this.createdAt});
+  Department(
+      {this.departmentId,
+      this.universityId,
+      this.title,
+      this.degree,
+      this.isActive,
+      this.updatedAt,
+      this.createdAt});
 
   Department.fromJson(Map<String, dynamic> json) {
     departmentId = json['department_id'];
@@ -20,14 +27,14 @@ class Department {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['department_id'] = this.departmentId;
-    data['university_id'] = this.universityId;
-    data['title'] = this.title;
-    data['degree'] = this.degree;
-    data['is_active'] = this.isActive;
-    data['updated_at'] = this.updatedAt;
-    data['created_at'] = this.createdAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['department_id'] = departmentId;
+    data['university_id'] = universityId;
+    data['title'] = title;
+    data['degree'] = degree;
+    data['is_active'] = isActive;
+    data['updated_at'] = updatedAt;
+    data['created_at'] = createdAt;
     return data;
   }
 }

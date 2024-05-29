@@ -1,9 +1,9 @@
-import 'package:technicmate/features/auth/model/error_model.dart';
+import 'package:technicmate/common/models/error_model.dart';
 
 class RegisterDepartmentModel {
   bool? succes;
   List<Data>? data;
-  Error? error;
+  ErrorModel? error;
 
   RegisterDepartmentModel({this.succes, this.data, this.error});
 
@@ -15,7 +15,8 @@ class RegisterDepartmentModel {
         data!.add(new Data.fromJson(v));
       });
     }
-    error = json['error'] != null ? new Error.fromJson(json['error']) : null;
+    error =
+        json['error'] != null ? new ErrorModel.fromJson(json['error']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -39,7 +40,13 @@ class Data {
   String? createdAt;
   String? updatedAt;
 
-  Data({this.departmentId, this.title, this.isActive, this.universityId, this.createdAt, this.updatedAt});
+  Data(
+      {this.departmentId,
+      this.title,
+      this.isActive,
+      this.universityId,
+      this.createdAt,
+      this.updatedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     departmentId = json['department_id'];

@@ -1,17 +1,18 @@
-import 'package:technicmate/features/auth/model/error_model.dart';
-import 'package:technicmate/features/auth/model/user_model.dart';
+import 'package:technicmate/common/models/error_model.dart';
+import 'package:technicmate/common/models/user_model.dart';
 
 class LoginModel {
   bool? success;
   Data? data;
-  Error? error;
+  ErrorModel? error;
 
   LoginModel({this.success, this.data, this.error});
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    error = json['error'] != null ? new Error.fromJson(json['error']) : null;
+    error =
+        json['error'] != null ? new ErrorModel.fromJson(json['error']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -35,7 +36,13 @@ class Data {
   String? validityAt;
   String? createdAt;
 
-  Data({this.token, this.userTypeId, this.userId, this.user, this.validityAt, this.createdAt});
+  Data(
+      {this.token,
+      this.userTypeId,
+      this.userId,
+      this.user,
+      this.validityAt,
+      this.createdAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     token = json['token'];

@@ -10,6 +10,7 @@ import 'package:technicmate/theme/theme.dart';
 
 class LoginPasswordView extends StatelessWidget {
   LoginPasswordView({super.key, required this.model});
+
   final controller = Get.put(LoginController());
   final CheckEmailModel model;
   @override
@@ -32,7 +33,8 @@ class LoginPasswordView extends StatelessWidget {
                   minRadius: 50,
                   child: ClipOval(
                     child: Image.network(
-                      model.data?.profileImage ?? AssetConstants.defaultProfileImage,
+                      model.data?.profileImage ??
+                          AssetConstants.defaultProfileImage,
                       width: 150,
                       height: 150,
                       fit: BoxFit.cover,
@@ -43,7 +45,8 @@ class LoginPasswordView extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     text: "${model.data?.rootMail}",
-                    style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.inter(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(
                         text: "${model.data?.studentMail}",
@@ -58,7 +61,8 @@ class LoginPasswordView extends StatelessWidget {
                 ),
                 Text(
                   "Yeniden hoş geldin!",
-                  style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w100),
+                  style: GoogleFonts.inter(
+                      fontSize: 20, fontWeight: FontWeight.w100),
                 ),
               ],
             ),
@@ -79,7 +83,9 @@ class LoginPasswordView extends StatelessWidget {
                     TextFormField(
                       controller: controller.passwordController,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: BorderSide.none),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: BorderSide.none),
                         filled: true,
                         fillColor: Palette.authTextFieldFillColor,
                         hintText: "Yazmak için tıkla...",
@@ -120,8 +126,10 @@ class LoginPasswordView extends StatelessWidget {
                             width: 110,
                             height: 34,
                             onPressed: () {
-                              print(controller.emailController.text + " " + controller.passwordController.text);
-                              controller.postUser();
+                              print(controller.emailController.text +
+                                  " " +
+                                  controller.passwordController.text);
+                              controller.checkUser();
                             },
                             child: Text(
                               "Giriş",

@@ -1,18 +1,19 @@
-import 'package:technicmate/features/auth/model/department_model.dart';
-import 'package:technicmate/features/auth/model/error_model.dart';
-import 'package:technicmate/features/auth/model/university_model.dart';
+import 'package:technicmate/common/models/department_model.dart';
+import 'package:technicmate/common/models/error_model.dart';
+import 'package:technicmate/common/models/university_model.dart';
 
 class UserProfileModel {
   bool? succes;
   Data? data;
-  Error? error;
+  ErrorModel? error;
 
   UserProfileModel({this.succes, this.data, this.error});
 
   UserProfileModel.fromJson(Map<String, dynamic> json) {
     succes = json['succes'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    error = json['error'] != null ? new Error.fromJson(json['error']) : null;
+    error =
+        json['error'] != null ? new ErrorModel.fromJson(json['error']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -70,8 +71,12 @@ class Data {
     biography = json['biography'];
     isFollow = json['is_follow'];
     isFollower = json['is_follower'];
-    university = json['university'] != null ? new University.fromJson(json['university']) : null;
-    department = json['department'] != null ? new Department.fromJson(json['department']) : null;
+    university = json['university'] != null
+        ? new University.fromJson(json['university'])
+        : null;
+    department = json['department'] != null
+        ? new Department.fromJson(json['department'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

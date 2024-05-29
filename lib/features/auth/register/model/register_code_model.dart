@@ -1,4 +1,4 @@
-import 'package:technicmate/features/auth/model/error_model.dart';
+import 'package:technicmate/common/models/error_model.dart';
 
 class RegisterCodeModel {
   String? email;
@@ -22,18 +22,20 @@ class RegisterCodeModel {
 class RegisterCodeReturnModel {
   bool? success;
   Data? data;
-  Error? error;
+  ErrorModel? error;
 
   RegisterCodeReturnModel({this.success, this.data, this.error});
 
   RegisterCodeReturnModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    error = json['error'] != null ? new Error.fromJson(json['error']) : null;
+    error =
+        json['error'] != null ? new ErrorModel.fromJson(json['error']) : null;
   }
-   RegisterCodeReturnModel.fromJsonRegister(Map<String, dynamic> json) {
+  RegisterCodeReturnModel.fromJsonRegister(Map<String, dynamic> json) {
     success = json['success'];
-    error = json['error'] != null ? new Error.fromJson(json['error']) : null;
+    error =
+        json['error'] != null ? new ErrorModel.fromJson(json['error']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -75,7 +77,15 @@ class RegisterModel {
   String? encryptedPassword;
   String? completeCode;
 
-  RegisterModel({this.email, this.firstname, this.lastname, this.birthDate, this.gender, this.departmentId, this.encryptedPassword, this.completeCode});
+  RegisterModel(
+      {this.email,
+      this.firstname,
+      this.lastname,
+      this.birthDate,
+      this.gender,
+      this.departmentId,
+      this.encryptedPassword,
+      this.completeCode});
 
   RegisterModel.fromJson(Map<String, dynamic> json) {
     email = json['email'];
