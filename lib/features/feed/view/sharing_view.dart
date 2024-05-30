@@ -20,12 +20,12 @@ class SharingView extends StatelessWidget {
             if (controller.isLoading.value == true) {
               return const Center(child: CircularProgressIndicator());
             }
-            if (controller.model.value.data == null) {
+            if (controller.feedPostModel.value.data == null) {
               return const Center(
                 child: Text("Veri alınamadı"),
               );
             }
-            if (controller.model.value.data!.isEmpty) {
+            if (controller.feedPostModel.value.data!.isEmpty) {
               return const Center(
                 child: Text("Buralar sakin. İlk olmak ister misin?"),
               );
@@ -36,12 +36,12 @@ class SharingView extends StatelessWidget {
                 },
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
-                  itemCount: controller.model.value.data?.length ?? 0,
+                  itemCount: controller.feedPostModel.value.data?.length ?? 0,
                   separatorBuilder: (context, index) => const Divider(
                     color: Palette.seperatorGrey,
                   ),
                   itemBuilder: (context, index) {
-                    var data = controller.model.value.data;
+                    var data = controller.feedPostModel.value.data;
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10),
@@ -54,7 +54,7 @@ class SharingView extends StatelessWidget {
                               UserProfileController controller2 =
                                   Get.put(UserProfileController());
                               String selectedUserId = controller
-                                  .model.value.data![index].user!.userId
+                                  .feedPostModel.value.data![index].user!.userId
                                   .toString();
                               controller2.userId = selectedUserId;
                               await controller2.fetchPosts(selectedUserId);
@@ -121,13 +121,13 @@ class SharingView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    controller.model.value.data?[index].user
-                                                ?.userId ==
+                                    controller.feedPostModel.value.data?[index]
+                                                .user?.userId ==
                                             controller.box.read("uid")
                                         ? IconButton(
                                             onPressed: () async {
                                               await controller.removePost(
-                                                  controller.model.value
+                                                  controller.feedPostModel.value
                                                       .data?[index].postId);
                                             },
                                             icon: const Icon(Icons.remove),

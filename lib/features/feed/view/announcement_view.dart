@@ -18,12 +18,12 @@ class AnnouncementView extends StatelessWidget {
             if (controller.isLoading.value == true) {
               return const Center(child: CircularProgressIndicator());
             }
-            if (controller.model2.value.data == null) {
+            if (controller.feedAnnounceModel.value.data == null) {
               return const Center(
                 child: Text("Veri alınamadı"),
               );
             }
-            if (controller.model2.value.data!.isEmpty) {
+            if (controller.feedAnnounceModel.value.data!.isEmpty) {
               return const Center(
                 child: Text("Buralar sakin. İlk olmak ister misin?"),
               );
@@ -34,12 +34,13 @@ class AnnouncementView extends StatelessWidget {
                 },
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
-                  itemCount: controller.model2.value.data?.length ?? 0,
+                  itemCount:
+                      controller.feedAnnounceModel.value.data?.length ?? 0,
                   separatorBuilder: (context, index) => const Divider(
                     color: Palette.seperatorGrey,
                   ),
                   itemBuilder: (context, index) {
-                    var data = controller.model2.value.data;
+                    var data = controller.feedAnnounceModel.value.data;
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10),

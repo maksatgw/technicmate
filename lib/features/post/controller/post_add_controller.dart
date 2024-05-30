@@ -6,21 +6,26 @@ import 'package:technicmate/features/post/model/post_create_model.dart';
 import 'package:technicmate/features/post/service/post_add_service.dart';
 
 class PostAddController extends GetxController {
-  RxBool isSelected = false.obs;
-  final RxInt selectedValue = 3.obs;
   TextEditingController postBodyController = TextEditingController();
+
+  var postCreateModel = PostCreateModel();
+
+  FeedController feedController = FeedController();
+
   final PostAddService service = PostAddService();
-  PostCreateModel req = PostCreateModel();
+
   var isLoading = false.obs;
-  var feedController = Get.put(FeedController());
+  var isSelected = false.obs;
+  var selectedValue = 3.obs;
 
   Future<void> postData() async {
     try {
-      req.postTypeId = selectedValue.value;
-      req.text = postBodyController.text;
+      postCreateModel.postTypeId = selectedValue.value;
+      postCreateModel.text = postBodyController.text;
       isLoading.value = true;
-      var response = await service.postData(req);
+      var response = await service.postData(postCreateModel);
       if (response?.success == true) {
+        await feedController.fetchPosts();
         Get.snackbar(
           "Başarılı",
           "Postunuz kaydedildi.",
@@ -29,8 +34,7 @@ class PostAddController extends GetxController {
           backgroundColor: Colors.blue,
           icon: const Icon(Icons.add_alert),
         );
-        await feedController.fetchPosts();
-        Get.to(() => HomeView());
+        Get.offAll(() => HomeView());
         isLoading.value = false;
       } else {
         isLoading.value = false;
@@ -43,7 +47,7 @@ class PostAddController extends GetxController {
           icon: const Icon(Icons.error),
         );
         await feedController.fetchPosts();
-        Get.to(() => HomeView());
+        Get.offAll(() => HomeView());
       }
     } catch (e) {
       print(e);

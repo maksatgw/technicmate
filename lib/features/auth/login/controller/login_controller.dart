@@ -14,13 +14,13 @@ class LoginController extends GetxController {
   //UI Tarafında TextFormField'larımızın controller nesnelerini tanımlıyoruz.
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  //Servisteki metodlarımızda kullanılacak olan modeller.
+  UserRequestModel userRequsetModel = UserRequestModel();
+  CheckEmailModel checkEmailModel = CheckEmailModel();
   //isteklerimizi atacağımız servisleri tanımlıyoruz.
   LoginService service = LoginService();
-  //Servisteki metodlarımızda kullanılacak olan modelimiz.
-  UserRequestModel req = UserRequestModel();
   //Local storage için kullanacağımız kütüphane nesnesi.
   final box = GetStorage();
-  CheckEmailModel model = CheckEmailModel();
 
   //Yükleme esnasında olduğumuzu kullanıcıya belirtmemize yarayan boolean değeri.
   var isLoading = false.obs;
@@ -28,8 +28,8 @@ class LoginController extends GetxController {
   //Void tipinde asenkron bir metot.
   Future<void> checkEmail() async {
     //isLoading de
-    req.email = emailController.text;
-    var response = await service.checkEmail(req);
+    userRequsetModel.email = emailController.text;
+    var response = await service.checkEmail(userRequsetModel);
     if (response?.success == true) {
       if (response?.data?.isLogin == true && response != null) {
         isLoading.value = false;
@@ -66,9 +66,9 @@ class LoginController extends GetxController {
 
   Future<void> checkUser() async {
     isLoading.value = true;
-    req.email = emailController.text;
-    req.password = passwordController.text;
-    var response = await service.postUser(req);
+    userRequsetModel.email = emailController.text;
+    userRequsetModel.password = passwordController.text;
+    var response = await service.postUser(userRequsetModel);
     if (response?.success == false) {
       isLoading.value = false;
       Get.snackbar(

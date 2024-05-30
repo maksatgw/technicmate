@@ -1,36 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/feed/model/feed_model.dart';
 import 'package:technicmate/features/feed/service/feed_service.dart';
 
 class FeedController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  late TabController tabController;
+  var feedPostModel = FeedModel().obs;
+  var feedAnnounceModel = FeedModel().obs;
+
   final FeedService service = FeedService();
+
   final box = GetStorage();
+
+  var images = AssetConstants.defaultProfileImage.obs;
   var isLoading = false.obs;
-  var model = FeedModel().obs;
-  var model2 = FeedModel().obs;
-  var images = "".obs;
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
+  late TabController tabController;
+
   @override
   void onInit() async {
+    //TabBar Initialize
     tabController = TabController(length: 2, vsync: this);
+    //postları çek.
     await fetchPosts();
+    //duyuruları çek.
     await fetchAnnouncements();
+    //Profil Image'ını cache'e yaz.
     images.value = box.read("uimage");
-    print(images);
+
     super.onInit();
   }
 
+  void openDrawer() {
+    scaffoldKey.currentState?.openDrawer();
+  }
+
+  void closeDrawer() {
+    scaffoldKey.currentState?.openEndDrawer();
+  }
+
   Future<void> fetchPosts() async {
+    //Loading indicator çalıştır
     isLoading.value = true;
+    //servisten postları al.
     var response = await service.getPosts();
     if (response != null) {
-      model.value = response;
+      //postmodele response'tan gelen datayı ver.
+      feedPostModel.value = response;
+      //Loading indicator bitir.
       isLoading.value = false;
     }
     if (response == null) {
+      //Loading indicator bitir.
+      isLoading.value = false;
+      //SnackBar Hata Mesajı döndür.
       Get.snackbar(
         "Hata",
         "Sunucu hatası",
@@ -39,8 +66,36 @@ class FeedController extends GetxController
         backgroundColor: Colors.red,
         icon: const Icon(Icons.add_alert),
       );
+    }
+    //Loading indicator bitir.
+    isLoading.value = false;
+  }
+
+  Future<void> fetchAnnouncements() async {
+    //Loading indicator başlat.
+    isLoading.value = true;
+    //Duyuruları servisten çek.
+    var response = await service.getAnnouncements();
+    if (response != null) {
+      //Duyuru modeline atamayı yap.
+      feedAnnounceModel.value = response;
+      //Loading indicator bitir.
       isLoading.value = false;
     }
+    if (response == null) {
+      //Loading indicator bitir.
+      isLoading.value = false;
+      //Hata Mesajını ver.
+      Get.snackbar(
+        "Hata",
+        "Sunucu hatası",
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+        icon: const Icon(Icons.add_alert),
+      );
+    }
+    //Loading indicator bitir.
     isLoading.value = false;
   }
 
@@ -72,26 +127,5 @@ class FeedController extends GetxController
     } catch (e) {
       print(e);
     }
-  }
-
-  Future<void> fetchAnnouncements() async {
-    isLoading.value = true;
-    var response = await service.getAnnouncements();
-    if (response != null) {
-      model2.value = response;
-      isLoading.value = false;
-    }
-    if (response == null) {
-      Get.snackbar(
-        "Hata",
-        "Sunucu hatası",
-        snackPosition: SnackPosition.BOTTOM,
-        colorText: Colors.white,
-        backgroundColor: Colors.red,
-        icon: const Icon(Icons.add_alert),
-      );
-      isLoading.value = false;
-    }
-    isLoading.value = false;
   }
 }
