@@ -1,10 +1,9 @@
-import 'package:technicmate/common/models/department_model.dart';
-import 'package:technicmate/common/models/error_model.dart';
-import 'package:technicmate/common/models/university_model.dart';
+import 'package:technicmate/common/models/models.dart';
+import 'package:technicmate/features/search/model/search_response_model.dart';
 
 class UserSearchModel {
   bool? success;
-  List<Data>? data;
+  List<UserSearchResponseModel>? data;
   ErrorModel? error;
 
   UserSearchModel({this.success, this.data, this.error});
@@ -12,80 +11,22 @@ class UserSearchModel {
   UserSearchModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <UserSearchResponseModel>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(UserSearchResponseModel.fromJson(v));
       });
     }
-    error =
-        json['error'] != null ? new ErrorModel.fromJson(json['error']) : null;
+    error = json['error'] != null ? ErrorModel.fromJson(json['error']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    if (this.error != null) {
-      data['error'] = this.error!.toJson();
-    }
-    return data;
-  }
-}
-
-class Data {
-  String? userId;
-  String? profileImageData;
-  String? email;
-  String? firstname;
-  String? lastname;
-  bool? isFollow;
-  bool? isFollower;
-  University? university;
-  Department? department;
-
-  Data(
-      {this.userId,
-      this.profileImageData,
-      this.email,
-      this.firstname,
-      this.lastname,
-      this.isFollow,
-      this.isFollower,
-      this.university,
-      this.department});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
-    profileImageData = json['profile_image_data'];
-    email = json['email'];
-    firstname = json['firstname'];
-    lastname = json['lastname'];
-    isFollow = json['is_follow'];
-    isFollower = json['is_follower'];
-    university = json['university'] != null
-        ? new University.fromJson(json['university'])
-        : null;
-    department = json['department'] != null
-        ? new Department.fromJson(json['department'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = this.userId;
-    data['profile_image_data'] = this.profileImageData;
-    data['email'] = this.email;
-    data['firstname'] = this.firstname;
-    data['lastname'] = this.lastname;
-    data['is_follow'] = this.isFollow;
-    data['is_follower'] = this.isFollower;
-    if (this.university != null) {
-      data['university'] = this.university!.toJson();
-    }
-    if (this.department != null) {
-      data['department'] = this.department!.toJson();
+    if (error != null) {
+      data['error'] = error!.toJson();
     }
     return data;
   }

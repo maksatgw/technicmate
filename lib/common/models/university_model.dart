@@ -1,4 +1,4 @@
-class University {
+class UniversityModel {
   String? universityId;
   String? title;
   int? countryId;
@@ -8,7 +8,7 @@ class University {
   String? updatedAt;
   String? createdAt;
 
-  University(
+  UniversityModel(
       {this.universityId,
       this.title,
       this.countryId,
@@ -18,7 +18,7 @@ class University {
       this.updatedAt,
       this.createdAt});
 
-  University.fromJson(Map<String, dynamic> json) {
+  UniversityModel.fromJson(Map<String, dynamic> json) {
     universityId = json['university_id'];
     title = json['title'];
     countryId = json['country_id'];

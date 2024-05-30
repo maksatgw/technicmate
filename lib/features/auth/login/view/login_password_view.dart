@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/auth/login/controller/login_controller.dart';
-import 'package:technicmate/features/auth/login/model/chek_email_model.dart';
+import 'package:technicmate/features/auth/login/model/check_email_model.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class LoginPasswordView extends StatelessWidget {
@@ -126,9 +126,8 @@ class LoginPasswordView extends StatelessWidget {
                             width: 110,
                             height: 34,
                             onPressed: () {
-                              print(controller.emailController.text +
-                                  " " +
-                                  controller.passwordController.text);
+                              print(
+                                  "${controller.emailController.text} ${controller.passwordController.text}");
                               controller.checkUser();
                             },
                             child: Text(

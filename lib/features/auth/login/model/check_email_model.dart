@@ -1,17 +1,17 @@
 import 'package:technicmate/common/models/models.dart';
-import 'package:technicmate/features/auth/login/model/login_response_model.dart';
+import 'package:technicmate/features/auth/login/model/check_email_response_model.dart';
 
-class LoginModel {
+class CheckEmailModel {
   bool? success;
-  LoginDataResponeModel? data;
+  CheckEmailResponseDataModel? data;
   ErrorModel? error;
 
-  LoginModel({this.success, this.data, this.error});
+  CheckEmailModel({this.success, this.data, this.error});
 
-  LoginModel.fromJson(Map<String, dynamic> json) {
+  CheckEmailModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     data = json['data'] != null
-        ? LoginDataResponeModel.fromJson(json['data'])
+        ? CheckEmailResponseDataModel.fromJson(json['data'])
         : null;
     error = json['error'] != null ? ErrorModel.fromJson(json['error']) : null;
   }

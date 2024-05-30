@@ -12,9 +12,9 @@ class Additionals {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['additional_type_id'] = this.additionalTypeId;
-    data['inx'] = this.inx;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['additional_type_id'] = additionalTypeId;
+    data['inx'] = inx;
     data['data'] = this.data;
     return data;
   }

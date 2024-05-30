@@ -1,6 +1,6 @@
 import 'package:technicmate/common/models/department_model.dart';
 import 'package:technicmate/common/models/user_model.dart';
-import 'package:technicmate/features/feed/model/additionals_model.dart';
+import 'package:technicmate/common/models/additionals_model.dart';
 
 class PostModel {
   String? text;
@@ -8,8 +8,8 @@ class PostModel {
   String? postId;
   int? postStatusId;
   List<Additionals>? additionals;
-  Department? department;
-  User? user;
+  DepartmentModel? department;
+  UserModel? user;
   String? createdAt;
 
   PostModel(
@@ -34,9 +34,9 @@ class PostModel {
       });
     }
     department = json['department'] != null
-        ? Department.fromJson(json['department'])
+        ? DepartmentModel.fromJson(json['department'])
         : null;
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+    user = json['user'] != null ? UserModel.fromJson(json['user']) : null;
     createdAt = json['created_at'];
   }
 

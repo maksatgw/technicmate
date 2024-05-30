@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:technicmate/core/service/dio_service.dart';
-import 'package:technicmate/features/auth/login/model/chek_email_model.dart';
+import 'package:technicmate/features/auth/login/model/check_email_model.dart';
 import 'package:technicmate/features/auth/login/model/login_model.dart';
 import 'package:technicmate/features/auth/login/model/user_request_model.dart';
 

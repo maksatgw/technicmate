@@ -1,35 +1,34 @@
-import 'package:technicmate/common/models/department_model.dart';
-import 'package:technicmate/common/models/error_model.dart';
-import 'package:technicmate/common/models/university_model.dart';
+import 'package:technicmate/common/models/models.dart';
 
 class UserProfileModel {
   bool? succes;
-  Data? data;
+  UserProfileDataModel? data;
   ErrorModel? error;
 
   UserProfileModel({this.succes, this.data, this.error});
 
   UserProfileModel.fromJson(Map<String, dynamic> json) {
     succes = json['succes'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    error =
-        json['error'] != null ? new ErrorModel.fromJson(json['error']) : null;
+    data = json['data'] != null
+        ? UserProfileDataModel.fromJson(json['data'])
+        : null;
+    error = json['error'] != null ? ErrorModel.fromJson(json['error']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['succes'] = this.succes;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['succes'] = succes;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    if (this.error != null) {
-      data['error'] = this.error!.toJson();
+    if (error != null) {
+      data['error'] = error!.toJson();
     }
     return data;
   }
 }
 
-class Data {
+class UserProfileDataModel {
   String? userId;
   String? profileImageData;
   String? email;
@@ -41,10 +40,10 @@ class Data {
   String? biography;
   bool? isFollow;
   bool? isFollower;
-  University? university;
-  Department? department;
+  UniversityModel? university;
+  DepartmentModel? department;
 
-  Data(
+  UserProfileDataModel(
       {this.userId,
       this.profileImageData,
       this.email,
@@ -59,7 +58,7 @@ class Data {
       this.university,
       this.department});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  UserProfileDataModel.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     profileImageData = json['profile_image_data'];
     email = json['email'];
@@ -72,31 +71,31 @@ class Data {
     isFollow = json['is_follow'];
     isFollower = json['is_follower'];
     university = json['university'] != null
-        ? new University.fromJson(json['university'])
+        ? UniversityModel.fromJson(json['university'])
         : null;
     department = json['department'] != null
-        ? new Department.fromJson(json['department'])
+        ? DepartmentModel.fromJson(json['department'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_id'] = this.userId;
-    data['profile_image_data'] = this.profileImageData;
-    data['email'] = this.email;
-    data['firstname'] = this.firstname;
-    data['lastname'] = this.lastname;
-    data['follower_count'] = this.followerCount;
-    data['followed_by_count'] = this.followedByCount;
-    data['note_count'] = this.noteCount;
-    data['biography'] = this.biography;
-    data['is_follow'] = this.isFollow;
-    data['is_follower'] = this.isFollower;
-    if (this.university != null) {
-      data['university'] = this.university!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['user_id'] = userId;
+    data['profile_image_data'] = profileImageData;
+    data['email'] = email;
+    data['firstname'] = firstname;
+    data['lastname'] = lastname;
+    data['follower_count'] = followerCount;
+    data['followed_by_count'] = followedByCount;
+    data['note_count'] = noteCount;
+    data['biography'] = biography;
+    data['is_follow'] = isFollow;
+    data['is_follower'] = isFollower;
+    if (university != null) {
+      data['university'] = university!.toJson();
     }
-    if (this.department != null) {
-      data['department'] = this.department!.toJson();
+    if (department != null) {
+      data['department'] = department!.toJson();
     }
     return data;
   }

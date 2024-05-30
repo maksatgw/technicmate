@@ -10,9 +10,9 @@ class PostCreateModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['post_type_id'] = this.postTypeId;
-    data['text'] = this.text;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['post_type_id'] = postTypeId;
+    data['text'] = text;
     return data;
   }
 }

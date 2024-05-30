@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:technicmate/core/service/dio_service.dart';
 import 'package:technicmate/features/auth/register/model/register_code_model.dart';
+import 'package:technicmate/features/auth/register/model/register_code_response_model.dart';
 import 'package:technicmate/features/auth/register/model/register_departments_model.dart';
+import 'package:technicmate/features/auth/register/model/register_model.dart';
 
 class RegisterService {
   final Dio dio = DioService.baseDio();
@@ -32,7 +34,7 @@ class RegisterService {
   }
 
   Future<RegisterCodeReturnModel?> registerCodePost(
-      RegisterCodeModel req) async {
+      RegisterCodeRequestModel req) async {
     try {
       final response =
           await dio.post('/auth/register/code', data: req.toJson());

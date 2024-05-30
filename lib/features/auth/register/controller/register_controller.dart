@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:technicmate/features/auth/register/model/register_code_model.dart';
+import 'package:technicmate/features/auth/register/model/register_code_response_model.dart';
 import 'package:technicmate/features/auth/register/model/register_departments_model.dart';
+import 'package:technicmate/features/auth/register/model/register_model.dart';
 import 'package:technicmate/features/auth/register/service/register_service.dart';
 
 class RegisterController extends GetxController {
@@ -19,7 +21,7 @@ class RegisterController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   var registerDepartmentModel = RegisterDepartmentModel().obs;
   var codeModel = RegisterCodeReturnModel().obs;
-  RegisterCodeModel req = RegisterCodeModel();
+  RegisterCodeRequestModel req = RegisterCodeRequestModel();
   RegisterModel registerModel = RegisterModel();
   var selectedDate = DateTime(2003).obs;
 

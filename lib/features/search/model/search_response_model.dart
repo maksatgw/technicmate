@@ -1,38 +1,35 @@
 import 'package:technicmate/common/models/models.dart';
 
-class UserModel {
+class UserSearchResponseModel {
   String? userId;
   String? profileImageData;
   String? email;
   String? firstname;
   String? lastname;
-  String? followerCount;
-  String? followedByCount;
-  String? biography;
+  bool? isFollow;
+  bool? isFollower;
   UniversityModel? university;
   DepartmentModel? department;
 
-  UserModel(
+  UserSearchResponseModel(
       {this.userId,
       this.profileImageData,
       this.email,
       this.firstname,
       this.lastname,
-      this.followerCount,
-      this.followedByCount,
-      this.biography,
+      this.isFollow,
+      this.isFollower,
       this.university,
       this.department});
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  UserSearchResponseModel.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     profileImageData = json['profile_image_data'];
     email = json['email'];
     firstname = json['firstname'];
     lastname = json['lastname'];
-    followerCount = json['follower_count'];
-    followedByCount = json['followed_by_count'];
-    biography = json['biography'];
+    isFollow = json['is_follow'];
+    isFollower = json['is_follower'];
     university = json['university'] != null
         ? UniversityModel.fromJson(json['university'])
         : null;
@@ -48,9 +45,8 @@ class UserModel {
     data['email'] = email;
     data['firstname'] = firstname;
     data['lastname'] = lastname;
-    data['follower_count'] = followerCount;
-    data['followed_by_count'] = followedByCount;
-    data['biography'] = biography;
+    data['is_follow'] = isFollow;
+    data['is_follower'] = isFollower;
     if (university != null) {
       data['university'] = university!.toJson();
     }

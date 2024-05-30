@@ -1,4 +1,4 @@
-class Department {
+class DepartmentModel {
   String? departmentId;
   String? universityId;
   String? title;
@@ -7,7 +7,7 @@ class Department {
   String? updatedAt;
   String? createdAt;
 
-  Department(
+  DepartmentModel(
       {this.departmentId,
       this.universityId,
       this.title,
@@ -16,7 +16,7 @@ class Department {
       this.updatedAt,
       this.createdAt});
 
-  Department.fromJson(Map<String, dynamic> json) {
+  DepartmentModel.fromJson(Map<String, dynamic> json) {
     departmentId = json['department_id'];
     universityId = json['university_id'];
     title = json['title'];

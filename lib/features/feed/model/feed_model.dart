@@ -1,5 +1,4 @@
-import 'package:technicmate/common/models/error_model.dart';
-import 'package:technicmate/common/models/post_model.dart';
+import 'package:technicmate/common/models/models.dart';
 
 class FeedModel {
   bool? success;
@@ -20,7 +19,7 @@ class FeedModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
