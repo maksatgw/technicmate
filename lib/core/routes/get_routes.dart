@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 import 'package:technicmate/features/feed/view/feed_view.dart';
 import 'package:technicmate/features/post/view/post_add_view.dart';

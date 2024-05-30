@@ -43,15 +43,19 @@ class SharingView extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var data = controller.model.value.data;
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           InkWell(
                             onTap: () async {
-                              UserProfileController controller2 = Get.put(UserProfileController());
-                              String selectedUserId = controller.model.value.data![index].user!.userId.toString();
+                              UserProfileController controller2 =
+                                  Get.put(UserProfileController());
+                              String selectedUserId = controller
+                                  .model.value.data![index].user!.userId
+                                  .toString();
                               controller2.userId = selectedUserId;
                               await controller2.fetchPosts(selectedUserId);
                               await controller2.fetchUserDetail(selectedUserId);
@@ -62,7 +66,8 @@ class SharingView extends StatelessWidget {
                                 CircleAvatar(
                                   radius: 24,
                                   backgroundImage: NetworkImage(
-                                    data?[index].user?.profileImageData ?? AssetConstants.defaultProfileImage,
+                                    data?[index].user?.profileImageData ??
+                                        AssetConstants.defaultProfileImage,
                                   ),
                                 ),
                                 getIconForPostType(data?[index].postTypeId),
@@ -116,10 +121,14 @@ class SharingView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    controller.model.value.data?[index].user?.userId == controller.box.read("uid")
+                                    controller.model.value.data?[index].user
+                                                ?.userId ==
+                                            controller.box.read("uid")
                                         ? IconButton(
                                             onPressed: () async {
-                                              await controller.removePost(controller.model.value.data?[index].postId);
+                                              await controller.removePost(
+                                                  controller.model.value
+                                                      .data?[index].postId);
                                             },
                                             icon: const Icon(Icons.remove),
                                           )
@@ -135,7 +144,8 @@ class SharingView extends StatelessWidget {
                                   ),
                                 ],
                                 const SizedBox(height: 10),
-                                if (data[index].additionals == null && data[index].additionals!.isEmpty) ...[
+                                if (data[index].additionals == null &&
+                                    data[index].additionals!.isEmpty) ...[
                                   Center(
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
@@ -165,12 +175,12 @@ class SharingView extends StatelessWidget {
 
 Widget getIconForPostType(int? postTypeId) {
   if (postTypeId == 3) {
-    return SizedBox();
+    return const SizedBox();
   } else if (postTypeId == 2) {
     return SvgPicture.asset(AssetConstants.iconInfo);
   } else if (postTypeId == 1) {
     return SvgPicture.asset(AssetConstants.iconQuestion);
   } else {
-    return SizedBox();
+    return const SizedBox();
   }
 }

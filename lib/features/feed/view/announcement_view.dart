@@ -151,12 +151,12 @@ class AnnouncementView extends StatelessWidget {
 
 Widget getIconForPostType(int? postTypeId) {
   if (postTypeId == 3) {
-    return SizedBox();
+    return const SizedBox();
   } else if (postTypeId == 2) {
     return SvgPicture.asset(AssetConstants.iconInfo);
   } else if (postTypeId == 1) {
     return SvgPicture.asset(AssetConstants.iconQuestion);
   } else {
-    return SizedBox();
+    return const SizedBox();
   }
 }
