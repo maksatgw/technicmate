@@ -9,7 +9,7 @@ import 'package:technicmate/features/user/service/user_profile_service.dart';
 
 class UserProfileController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  late TabController tabController;
+  // late TabController tabController;
   final UserProfileService service = UserProfileService();
   final FeedService service2 = FeedService();
   final controller3 = Get.put(FeedController());
@@ -18,12 +18,6 @@ class UserProfileController extends GetxController
   var isLoading = false.obs;
   var feedModel = FeedModel().obs;
   var userModel = UserProfileModel().obs;
-  String userId = "";
-  @override
-  void onInit() async {
-    tabController = TabController(length: 1, vsync: this);
-    super.onInit();
-  }
 
   Future<void> fetchUserDetail(String userId) async {
     isLoading.value = true;

@@ -6,9 +6,25 @@ import 'package:technicmate/constants/asset_constants.dart';
 import 'package:technicmate/features/user/controller/user_profile_controller.dart';
 import 'package:technicmate/theme/theme.dart';
 
-class UserProfileView extends StatelessWidget {
-  UserProfileView({super.key});
+class UserProfileView extends StatefulWidget {
+  const UserProfileView({super.key, required this.userId});
+  final String userId;
+
+  @override
+  State<UserProfileView> createState() => _UserProfileViewState();
+}
+
+class _UserProfileViewState extends State<UserProfileView>
+    with SingleTickerProviderStateMixin {
   final controller = Get.put(UserProfileController());
+  late TabController tabController;
+
+  @override
+  void initState() {
+    tabController = TabController(length: 1, vsync: this);
+    controller.fetchUserDetail(widget.userId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +47,7 @@ class UserProfileView extends StatelessWidget {
                 ),
                 Obx(() => UserProfileCustomStatic(
                     count: controller.userModel.value.data?.noteCount ?? 0,
-                    title: "Not")),
+                    title: "${widget.userId}")),
                 UserProfileCustomStatic(
                     count: controller.userModel.value.data?.followerCount ?? 0,
                     title: "Takipçi"),
@@ -68,7 +84,7 @@ class UserProfileView extends StatelessWidget {
             const SizedBox(height: 10),
             const SizedBox(height: 5),
             TabBar(
-              controller: controller.tabController,
+              controller: tabController,
               tabs: const [
                 Tab(
                   child: Text("Paylaşımlar"),
@@ -78,7 +94,7 @@ class UserProfileView extends StatelessWidget {
             const SizedBox(height: 10),
             Expanded(
               child: TabBarView(
-                controller: controller.tabController,
+                controller: tabController,
                 children: [
                   Obx(
                     () {

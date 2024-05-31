@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:technicmate/constants/constants.dart';
-import 'package:technicmate/features/post/controller/post_add_controller.dart';
+import 'package:technicmate/features/post/controller/post_controller.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class PostAddView extends StatelessWidget {
   PostAddView({super.key});
-  final controller = Get.put(PostAddController());
+  final controller = Get.put(PostController());
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -28,7 +28,7 @@ class PostAddView extends StatelessWidget {
                       ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          controller.postData();
+                          controller.createPost();
                         }
                       },
                       child: const Icon(

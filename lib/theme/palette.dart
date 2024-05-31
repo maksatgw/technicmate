@@ -25,4 +25,6 @@ class Palette {
   static const chatBubbleDarkBlueColor = Color(0xFF041C24);
 
   static const tmpostCreateChipInactive = Color(0xFF6D6D6D);
+
+  static const questionPostTypeYellow = Color(0xFFFFE500);
 }

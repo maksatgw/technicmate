@@ -27,7 +27,9 @@ class SearchView extends StatelessWidget {
             },
             style: const TextStyle(fontSize: 14),
             decoration: InputDecoration(
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(50), borderSide: BorderSide.none),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide.none),
               filled: true,
               fillColor: Palette.authTextFieldFillColor,
               hintText: "Ara",
@@ -56,15 +58,18 @@ class SearchView extends StatelessWidget {
               itemCount: controller.model.value.data?.length ?? 0,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: InkWell(
                     onTap: () async {
-                      UserProfileController controller2 = Get.put(UserProfileController());
-                      String selectedUserId = controller.model.value.data![index].userId.toString();
-                      controller2.userId = selectedUserId;
-                      await controller2.fetchPosts(selectedUserId);
-                      await controller2.fetchUserDetail(selectedUserId);
-                      Get.to(UserProfileView());
+                      // UserProfileController controller2 =
+                      //     Get.put(UserProfileController());
+                      // String selectedUserId =
+                      //     controller.model.value.data![index].userId.toString();
+                      // controller2.userId = selectedUserId;
+                      // await controller2.fetchPosts(selectedUserId);
+                      // await controller2.fetchUserDetail(selectedUserId);
+                      // Get.to(UserProfileView());
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,

@@ -11,6 +11,7 @@ class PostModel {
   DepartmentModel? department;
   UserModel? user;
   String? createdAt;
+  int? likeCount;
 
   PostModel(
       {this.text,
@@ -20,11 +21,13 @@ class PostModel {
       this.department,
       this.user,
       this.createdAt,
+      this.likeCount,
       this.postId});
 
   PostModel.fromJson(Map<String, dynamic> json) {
     text = json['text'];
     postId = json['post_id'];
+    likeCount = json['like_count'];
     postTypeId = json['post_type_id'];
     postStatusId = json['post_status_id'];
     if (json['additionals'] != null) {
