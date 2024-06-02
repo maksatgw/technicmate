@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_glow/flutter_glow.dart';
 import 'package:get/get.dart';
-import 'package:like_button/like_button.dart';
 import 'package:technicmate/common/commons.dart';
-import 'package:technicmate/common/models/models.dart';
 import 'package:technicmate/features/post/controller/post_controller.dart';
 import 'package:technicmate/theme/theme.dart';
 
@@ -20,7 +17,14 @@ class _PostDetailViewState extends State<PostDetailView> {
 
   @override
   void initState() {
-    controller.fetchPostById(widget.postId ?? "");
+    // controller.fetchPostById(widget.postId ?? "");
+    // print(widget.postId);
+    // controller.fetchPostComments(widget.postId ?? "");
+    // super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.fetchPostById(widget.postId ?? "");
+      controller.fetchPostComments(widget.postId ?? "");
+    });
     super.initState();
   }
 
@@ -30,100 +34,86 @@ class _PostDetailViewState extends State<PostDetailView> {
       appBar: AppBar(
         title: const Text("Post"),
       ),
-      body: Column(
-        children: [
-          Obx(
-            () => CustomPostCard(
-              data: controller.postModel.value.data,
-            ),
-          ),
-          Obx(() => CustomPostCardDeatilActions(
-                post: controller.postModel.value.data,
-              )),
-          // Obx(
-          //   () => Expanded(
-          //     child: ListView.separated(
-          //       separatorBuilder: (context, index) =>
-          //           const Divider(color: Palette.seperatorGrey),
-          //       itemCount: controller.feedPostModel.value.data?.length ?? 0,
-          //       itemBuilder: (context, index) {
-          //         return Obx(
-          //           () => CustomPostCard(
-          //             data: controller.feedPostModel.value.data?[index],
-          //           ),
-          //         );
-          //       },
-          //     ),
-          //   ),
-          // ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Type your comment',
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomPostCardDeatilActions extends StatelessWidget {
-  const CustomPostCardDeatilActions({
-    super.key,
-    required this.post,
-  });
-
-  final PostModel? post;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          const Divider(
-            color: Palette.seperatorGrey,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Wrap(
-                children: [
-                  LikeButton(
-                    likeCount: post?.likeCount,
-                    size: 25,
-                    circleColor: const CircleColor(
-                        start: Palette.tmMainBlue,
-                        end: Palette.chatBlueButtonColor),
-                    bubblesColor: const BubblesColor(
-                        dotPrimaryColor: Palette.chatBlueButtonColor,
-                        dotSecondaryColor: Palette.chatBubbleDarkBlueColor),
+      body: Obx(() {
+        if (controller.isLoading.isTrue) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (controller.postModel.value.data == null) {
+          return const Center(child: Text("data"));
+        } else {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              children: [
+                CustomPostCard(
+                  data: controller.postModel.value.data,
+                ),
+                const Divider(
+                  color: Palette.seperatorGrey,
+                ),
+                CustomPostCardDeatilActions(
+                  post: controller.postModel.value.data,
+                ),
+                const Divider(
+                  color: Palette.seperatorGrey,
+                ),
+                Expanded(
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => const Divider(
+                      color: Palette.seperatorGrey,
+                    ),
+                    itemCount: controller.feedModel.value.data?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          var postId =
+                              controller.feedModel.value.data?[index].postId;
+                          print(postId);
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //   builder: (context) =>
+                          //       PostDetailView(postId: postId),
+                          // ));
+                          // Get.to(
+                          //   () => PostDetailView(postId: postId),
+                          //   arguments: {"id": postId}, // Doğru parametre yapısı
+                          //   preventDuplicates: false,
+                          // );
+                          Get.to(
+                            () => PostDetailView(postId: postId),
+                            arguments: {"id": postId}, // Doğru parametre yapısı
+                            preventDuplicates: false,
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            CustomPostCard(
+                              data: controller.feedModel.value.data?[index],
+                            ),
+                            CustomPostCardDeatilActions(
+                              post: controller.feedModel.value.data?[index],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                ],
-              ),
-              if (post?.postTypeId == 1) ...[
-                GlowButton(
-                  height: 30,
-                  borderRadius: BorderRadius.circular(15),
-                  color: Palette.questionPostTypeYellow,
-                  glowColor: Palette.black,
-                  onPressed: () {},
-                  child: Text(
-                    "pinle",
-                    style: GoogleFonts.inter(color: Palette.black),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6),
+                        borderSide: BorderSide.none),
+                    filled: true,
+                    fillColor: Palette.authTextFieldFillColor,
+                    hintText: "Yazmak için tıkla...",
+                    hintStyle: GoogleFonts.inter(fontSize: 13),
                   ),
-                )
+                ),
               ],
-            ],
-          ),
-          const Divider(
-            color: Palette.seperatorGrey,
-          ),
-        ],
-      ),
+            ),
+          );
+        }
+      }),
     );
   }
 }

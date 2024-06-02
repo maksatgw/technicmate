@@ -45,10 +45,32 @@ class SharingView extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {
-                      Get.to(() => PostDetailView(postId: data[index].postId));
+                    onDoubleTap: () {
+                      print("double tapped");
                     },
-                    child: CustomPostCard(data: data[index]),
+                    onTap: () {
+                      Get.to(
+                        () => PostDetailView(postId: data[index].postId),
+                        arguments: {
+                          "id": data[index].postId,
+                        },
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Column(
+                        children: [
+                          CustomPostCard(
+                            data: data[index],
+                          ),
+                          Obx(() => CustomPostCardDeatilActions(
+                                post:
+                                    controller.feedPostModel.value.data?[index],
+                              )),
+                        ],
+                      ),
+                    ),
                   );
                 },
               ),

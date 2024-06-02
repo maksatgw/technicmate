@@ -1,12 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_glow/flutter_glow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
 import 'package:technicmate/common/models/models.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
+import 'package:technicmate/features/post/controller/post_controller.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class CustomPostCard extends StatelessWidget {
@@ -19,17 +21,14 @@ class CustomPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomPostCardProfileImage(data: data),
-          const SizedBox(width: 10), // Boşluk ekledim
-          CustomPostCardBody(data: data),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomPostCardProfileImage(data: data),
+        const SizedBox(width: 10), // Boşluk ekledim
+        CustomPostCardBody(data: data),
+      ],
     );
   }
 }
@@ -51,7 +50,6 @@ class CustomPostCardBody extends StatelessWidget {
           CustomPostCardBodyHeader(data: data),
           Text(
             "${data?.user?.email}",
-            // "Fenerbahce",
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.inter(
               fontSize: 12,
@@ -67,7 +65,7 @@ class CustomPostCardBody extends StatelessWidget {
             ),
           ],
           const SizedBox(height: 10),
-          if (data?.additionals != null) ...[
+          if (data?.additionals != null && data!.additionals!.isNotEmpty) ...[
             Center(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
@@ -126,7 +124,6 @@ class CustomPostCardBodyHeader extends StatelessWidget {
             ],
           ),
         ),
-
         PopupMenuButton<String>(
           onSelected: (String result) {
             print('Selected: $result');
@@ -150,39 +147,69 @@ class CustomPostCardBodyHeader extends StatelessWidget {
           ],
           child: SvgPicture.asset(AssetConstants.threeDotsOption),
         ),
-        // InkWell(
-        //   onTap: () {},
-        //   child: SvgPicture.asset(AssetConstants.threeDotsOption),
-        // ),
-        // data?.user?.userId == box.read("uid")
-        //     ? IconButton(
-        //         onPressed: () async {
-        //           // await data.removePost(
-        //           //     controller.feedPostModel.value
-        //           //         .data?[index].postId);
-        //           showMenu(
-        //             context: context,
-        //             position: RelativeRect.fromDirectional(
-        //                 textDirection: TextDirection.ltr,
-        //                 start: 1,
-        //                 top: 0,
-        //                 end: 0,
-        //                 bottom: 0),
-        //             items: [
-        //               const PopupMenuItem(
-        //                 child: Row(
-        //                   children: [
-        //                     Text("data"),
-        //                   ],
-        //                 ),
-        //               ),
-        //             ],
-        //           );
-        //         },
-        //         icon: const Icon(Icons.remove),
-        //       )
-        //     : const SizedBox(),
       ],
+    );
+  }
+}
+
+class CustomPostCardDeatilActions extends StatelessWidget {
+  CustomPostCardDeatilActions({
+    super.key,
+    required this.post,
+  });
+
+  final controller = Get.put(PostController());
+
+  final PostModel? post;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Wrap(
+            children: [
+              LikeButton(
+                isLiked: post?.isLiked,
+                likeCount: post?.likeCount,
+                onTap: (isLiked) async {
+                  if (isLiked == false) {
+                    await controller.likePost(post!.postId!);
+                    return true;
+                  } else if (isLiked == true) {
+                    await controller.likePost(post!.postId!);
+                    return false;
+                  }
+                  return false;
+                },
+                size: 20,
+                circleColor: const CircleColor(
+                    start: Palette.tmMainBlue,
+                    end: Palette.chatBlueButtonColor),
+                bubblesColor: const BubblesColor(
+                  dotPrimaryColor: Palette.chatBlueButtonColor,
+                  dotSecondaryColor: Palette.chatBubbleDarkBlueColor,
+                ),
+              ),
+            ],
+          ),
+          if (post?.postTypeId == 1) ...[
+            GlowButton(
+              height: 25,
+              width: 80,
+              borderRadius: BorderRadius.circular(15),
+              color: Palette.questionPostTypeYellow,
+              glowColor: Palette.black,
+              onPressed: () {},
+              child: Text(
+                "pinle",
+                style: GoogleFonts.inter(color: Palette.black),
+              ),
+            )
+          ],
+        ],
+      ),
     );
   }
 }
@@ -212,7 +239,7 @@ class CustomPostCardProfileImage extends StatelessWidget {
       child: Stack(
         children: [
           CircleAvatar(
-            radius: 24,
+            radius: 22,
             backgroundImage: NetworkImage(
               data?.user?.profileImageData ??
                   AssetConstants.defaultProfileImage,

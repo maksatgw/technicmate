@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:technicmate/common/models/models.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
+import 'package:technicmate/features/feed/model/feed_model.dart';
 import 'package:technicmate/features/home/view/home_view.dart';
 import 'package:technicmate/features/post/model/post_create_model.dart';
 import 'package:technicmate/features/post/model/post_get_by_id_model.dart';
@@ -12,10 +12,22 @@ class PostController extends GetxController {
 
   var postCreateModel = PostCreateModel();
   var postModel = PostGetByIdModel().obs;
+  var feedModel = FeedModel().obs;
 
   FeedController feedController = FeedController();
 
   final PostService service = PostService();
+
+  // @override
+  // void onInit() async {
+  //   super.onInit();
+
+  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
+  //     await fetchPostById(Get.arguments['id']);
+  //     print(Get.arguments['id']);
+  //     await fetchPostComments(Get.arguments['id']);
+  //   });
+  // }
 
   var isLoading = false.obs;
   var isSelected = false.obs;
@@ -23,13 +35,42 @@ class PostController extends GetxController {
 
   Future<void> fetchPostById(String postId) async {
     try {
-      isLoading.value = false;
+      isLoading.value = true;
       var response = await service.getPostById(postId);
       if (response?.success == true) {
         if (response != null) {
           postModel.value = response;
+          isLoading.value = false;
         }
+        isLoading.value = false;
       }
+      isLoading.value = false;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> fetchPostComments(String postId) async {
+    try {
+      isLoading.value = true;
+      var response = await service.getPostComments(postId);
+      if (response?.success == true) {
+        if (response != null) {
+          feedModel.value = response;
+          isLoading.value = false;
+        }
+        isLoading.value = false;
+      }
+      isLoading.value = false;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> likePost(String postId) async {
+    try {
+      final response = await service.likePost(postId);
+      if (response == true) {}
     } catch (e) {
       print(e);
     }

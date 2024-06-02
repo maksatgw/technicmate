@@ -11,6 +11,7 @@ class PostModel {
   DepartmentModel? department;
   UserModel? user;
   String? createdAt;
+  bool? isLiked;
   int? likeCount;
 
   PostModel(
@@ -20,6 +21,7 @@ class PostModel {
       this.additionals,
       this.department,
       this.user,
+      this.isLiked,
       this.createdAt,
       this.likeCount,
       this.postId});
@@ -28,6 +30,7 @@ class PostModel {
     text = json['text'];
     postId = json['post_id'];
     likeCount = json['like_count'];
+    isLiked = json['is_liked'];
     postTypeId = json['post_type_id'];
     postStatusId = json['post_status_id'];
     if (json['additionals'] != null) {

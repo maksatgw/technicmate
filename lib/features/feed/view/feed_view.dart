@@ -32,6 +32,7 @@ class FeedView extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
+        leadingWidth: 80,
         leading: IconButton(
           onPressed: controller.openDrawer,
           icon: SvgPicture.asset(
@@ -46,24 +47,24 @@ class FeedView extends StatelessWidget {
             if (controller.images.isNotEmpty) {
               return InkWell(
                 onTap: () async {
-                  // UserProfileController controller2 =
-                  //     Get.put(UserProfileController());
                   String selectedUserId = controller.box.read('uid');
-                  // controller2.userId = selectedUserId;
                   Get.to(
                     UserProfileView(
                       userId: selectedUserId,
                     ),
                   );
                 },
-                child: CircleAvatar(
-                  minRadius: 16,
-                  child: ClipOval(
-                    child: Image.network(
-                      controller.images.value,
-                      width: 40,
-                      height: 40,
-                      fit: BoxFit.cover,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: CircleAvatar(
+                    minRadius: 16,
+                    child: ClipOval(
+                      child: Image.network(
+                        controller.images.value,
+                        width: 40,
+                        height: 40,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
