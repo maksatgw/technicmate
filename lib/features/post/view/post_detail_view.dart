@@ -31,6 +31,32 @@ class _PostDetailViewState extends State<PostDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Wrap(
+          children: [
+            TextField(
+              controller: controller.commentInputController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Palette.authTextFieldFillColor,
+                hintText: "Yazmak için tıkla...",
+                hintStyle: GoogleFonts.inter(fontSize: 13),
+              ),
+            ),
+            IconButton(
+                onPressed: () async {
+                  await controller.postComment();
+                  await controller.fetchPostComments(widget.postId ?? "");
+                },
+                icon: Icon(Icons.abc))
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: const Text("Post"),
       ),
@@ -43,73 +69,73 @@ class _PostDetailViewState extends State<PostDetailView> {
         } else {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Column(
-              children: [
-                CustomPostCard(
-                  data: controller.postModel.value.data,
-                ),
-                const Divider(
-                  color: Palette.seperatorGrey,
-                ),
-                CustomPostCardDeatilActions(
-                  post: controller.postModel.value.data,
-                ),
-                const Divider(
-                  color: Palette.seperatorGrey,
-                ),
-                Expanded(
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => const Divider(
-                      color: Palette.seperatorGrey,
-                    ),
-                    itemCount: controller.feedModel.value.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          var postId =
-                              controller.feedModel.value.data?[index].postId;
-                          print(postId);
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //   builder: (context) =>
-                          //       PostDetailView(postId: postId),
-                          // ));
-                          // Get.to(
-                          //   () => PostDetailView(postId: postId),
-                          //   arguments: {"id": postId}, // Doğru parametre yapısı
-                          //   preventDuplicates: false,
-                          // );
-                          Get.to(
-                            () => PostDetailView(postId: postId),
-                            arguments: {"id": postId}, // Doğru parametre yapısı
-                            preventDuplicates: false,
+            child: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      CustomPostCard(
+                        data: controller.postModel.value.data,
+                      ),
+                      const Divider(
+                        color: Palette.seperatorGrey,
+                      ),
+                      CustomPostCardDeatilActions(
+                        post: controller.postModel.value.data,
+                      ),
+                      const Divider(
+                        color: Palette.seperatorGrey,
+                      ),
+                      ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        separatorBuilder: (context, index) => const Divider(
+                          color: Palette.seperatorGrey,
+                        ),
+                        itemCount: controller.feedModel.value.data?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              var postId = controller
+                                  .feedModel.value.data?[index].postId;
+                              print(postId);
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //   builder: (context) =>
+                              //       PostDetailView(postId: postId),
+                              // ));
+                              // Get.to(
+                              //   () => PostDetailView(postId: postId),
+                              //   arguments: {"id": postId}, // Doğru parametre yapısı
+                              //   preventDuplicates: false,
+                              // );
+                              Get.to(
+                                () => PostDetailView(postId: postId),
+                                arguments: {
+                                  "id": postId
+                                }, // Doğru parametre yapısı
+                                preventDuplicates: false,
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                CustomPostCard(
+                                  data: controller.feedModel.value.data?[index],
+                                ),
+                                CustomPostCardDeatilActions(
+                                  post: controller.feedModel.value.data?[index],
+                                ),
+                              ],
+                            ),
                           );
                         },
-                        child: Column(
-                          children: [
-                            CustomPostCard(
-                              data: controller.feedModel.value.data?[index],
-                            ),
-                            CustomPostCardDeatilActions(
-                              post: controller.feedModel.value.data?[index],
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        borderSide: BorderSide.none),
-                    filled: true,
-                    fillColor: Palette.authTextFieldFillColor,
-                    hintText: "Yazmak için tıkla...",
-                    hintStyle: GoogleFonts.inter(fontSize: 13),
-                  ),
-                ),
-              ],
+                  // Positioned(
+                  //   child:
+                  // ),
+                ],
+              ),
             ),
           );
         }

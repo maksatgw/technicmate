@@ -3,14 +3,17 @@ import 'package:get/get.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
 import 'package:technicmate/features/feed/model/feed_model.dart';
 import 'package:technicmate/features/home/view/home_view.dart';
+import 'package:technicmate/features/post/model/comment_create_model.dart';
 import 'package:technicmate/features/post/model/post_create_model.dart';
 import 'package:technicmate/features/post/model/post_get_by_id_model.dart';
 import 'package:technicmate/features/post/service/post_service.dart';
 
 class PostController extends GetxController {
   TextEditingController postBodyController = TextEditingController();
+  TextEditingController commentInputController = TextEditingController();
 
   var postCreateModel = PostCreateModel();
+  var commentCreateModel = CommentCreateModel();
   var postModel = PostGetByIdModel().obs;
   var feedModel = FeedModel().obs;
 
@@ -42,6 +45,31 @@ class PostController extends GetxController {
           postModel.value = response;
           isLoading.value = false;
         }
+        isLoading.value = false;
+      }
+      isLoading.value = false;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> postComment() async {
+    try {
+      commentCreateModel.replyPost = Get.arguments['id'];
+      commentCreateModel.postTypeId = "1";
+      commentCreateModel.text = commentInputController.text;
+      isLoading.value = true;
+
+      var response = await service.createComment(commentCreateModel);
+      if (response == true) {
+        Get.snackbar(
+          "Başarılı",
+          "Yorumunuz kaydedildi.",
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.white,
+          backgroundColor: Colors.blue,
+          icon: const Icon(Icons.add_alert),
+        );
         isLoading.value = false;
       }
       isLoading.value = false;

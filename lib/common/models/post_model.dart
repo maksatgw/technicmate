@@ -6,6 +6,7 @@ class PostModel {
   String? text;
   int? postTypeId;
   String? postId;
+  String? reply_post_id;
   int? postStatusId;
   List<Additionals>? additionals;
   DepartmentModel? department;
@@ -13,17 +14,20 @@ class PostModel {
   String? createdAt;
   bool? isLiked;
   int? likeCount;
+  int? replyCount;
 
   PostModel(
       {this.text,
       this.postTypeId,
       this.postStatusId,
       this.additionals,
+      this.reply_post_id,
       this.department,
       this.user,
       this.isLiked,
       this.createdAt,
       this.likeCount,
+      this.replyCount,
       this.postId});
 
   PostModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +35,7 @@ class PostModel {
     postId = json['post_id'];
     likeCount = json['like_count'];
     isLiked = json['is_liked'];
+    replyCount = json['reply_count'];
     postTypeId = json['post_type_id'];
     postStatusId = json['post_status_id'];
     if (json['additionals'] != null) {
@@ -51,6 +56,7 @@ class PostModel {
     data['text'] = text;
     data['post_type_id'] = postTypeId;
     data['post_status_id'] = postStatusId;
+    data['reply_post_id'] = reply_post_id;
     if (additionals != null) {
       data['additionals'] = additionals!.map((v) => v.toJson()).toList();
     }

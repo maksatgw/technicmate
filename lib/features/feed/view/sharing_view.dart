@@ -21,7 +21,6 @@ class SharingView extends StatelessWidget {
             final feedPostModel = controller.feedPostModel.value;
             final data = feedPostModel.data;
             final error = feedPostModel.error;
-            print(data?[1].postId);
             if (error != null) {
               return const Center(child: Text("Sunucu hatası"));
             }

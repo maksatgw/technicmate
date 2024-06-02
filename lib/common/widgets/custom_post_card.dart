@@ -170,27 +170,42 @@ class CustomPostCardDeatilActions extends StatelessWidget {
         children: [
           Wrap(
             children: [
-              LikeButton(
-                isLiked: post?.isLiked,
-                likeCount: post?.likeCount,
-                onTap: (isLiked) async {
-                  if (isLiked == false) {
-                    await controller.likePost(post!.postId!);
-                    return true;
-                  } else if (isLiked == true) {
-                    await controller.likePost(post!.postId!);
-                    return false;
-                  }
-                  return false;
-                },
-                size: 20,
-                circleColor: const CircleColor(
-                    start: Palette.tmMainBlue,
-                    end: Palette.chatBlueButtonColor),
-                bubblesColor: const BubblesColor(
-                  dotPrimaryColor: Palette.chatBlueButtonColor,
-                  dotSecondaryColor: Palette.chatBubbleDarkBlueColor,
-                ),
+              Wrap(
+                spacing: 10,
+                children: [
+                  LikeButton(
+                    isLiked: post?.isLiked,
+                    likeCount: post?.likeCount,
+                    onTap: (isLiked) async {
+                      if (isLiked == false) {
+                        await controller.likePost(post!.postId!);
+                        return true;
+                      } else if (isLiked == true) {
+                        await controller.likePost(post!.postId!);
+                        return false;
+                      }
+                      return false;
+                    },
+                    size: 20,
+                    circleColor: const CircleColor(
+                        start: Palette.tmMainBlue,
+                        end: Palette.chatBlueButtonColor),
+                    bubblesColor: const BubblesColor(
+                      dotPrimaryColor: Palette.chatBlueButtonColor,
+                      dotSecondaryColor: Palette.chatBubbleDarkBlueColor,
+                    ),
+                  ),
+                  Wrap(
+                    children: [
+                      const Icon(
+                        Icons.short_text,
+                        size: 20,
+                        color: Palette.usernameGrey,
+                      ),
+                      Text("${post?.replyCount}")
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
