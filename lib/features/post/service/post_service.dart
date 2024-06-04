@@ -24,7 +24,6 @@ class PostService {
         ),
       );
       if (response.statusCode == 200) {
-        print(response.data);
         return PostGetByIdModel.fromJson(response.data);
       }
     } on DioException catch (e) {
@@ -63,7 +62,6 @@ class PostService {
         ),
       );
       if (response.statusCode == HttpStatus.ok) {
-        response.data;
         return true;
       }
     } on DioException catch (e) {

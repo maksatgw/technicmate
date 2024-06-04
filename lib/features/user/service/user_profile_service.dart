@@ -27,6 +27,26 @@ class UserProfileService {
     return null;
   }
 
+  Future<bool> followUser(String userId) async {
+    try {
+      final response = await dio.get(
+        "/users/$userId/follow",
+        options: Options(
+          headers: {
+            "authorization": "Bearer ${box.read("bearer")}",
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        response.data;
+        return true;
+      }
+    } on DioException catch (e) {
+      print(e);
+    }
+    return false;
+  }
+
   Future<FeedModel?> getPostsByUserId(String userId) async {
     try {
       final response = await dio.get(

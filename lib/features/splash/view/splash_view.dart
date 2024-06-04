@@ -3,6 +3,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:technicmate/constants/constants.dart';
+import 'package:technicmate/features/home/controller/home_controller.dart';
 
 import 'package:technicmate/features/splash/controller/splash_controller.dart';
 import 'package:technicmate/theme/palette.dart';
@@ -11,7 +12,7 @@ class SplashView extends StatelessWidget {
   SplashView({super.key});
   //Getx ile controller'ı dependency Injection yoluyla ekliyoruz.
   final controller = Get.put(SplashController());
-
+  final homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     //Scaffold ile ana yapıyı kuruyoruz.

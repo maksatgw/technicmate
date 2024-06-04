@@ -19,10 +19,24 @@ class UserProfileController extends GetxController
   var feedModel = FeedModel().obs;
   var userModel = UserProfileModel().obs;
 
+  var isFollowing = false.obs;
+
+  Future<void> followUser(String userId) async {
+    try {
+      final response = await service.followUser(userId);
+      if (response == true) {
+        isFollowing.value = !isFollowing.value;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> fetchUserDetail(String userId) async {
     isLoading.value = true;
     var response = await service.getUserProfile(userId);
     if (response != null) {
+      isFollowing.value = userModel.value.data?.isFollow == true;
       userModel.value = response;
       isLoading.value = false;
     }

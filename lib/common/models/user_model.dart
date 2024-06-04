@@ -9,6 +9,9 @@ class UserModel {
   String? followerCount;
   String? followedByCount;
   String? biography;
+  bool? isFollowing;
+  bool? isFollowed;
+
   UniversityModel? university;
   DepartmentModel? department;
 
@@ -18,6 +21,8 @@ class UserModel {
       this.email,
       this.firstname,
       this.lastname,
+      this.isFollowed,
+      this.isFollowing,
       this.followerCount,
       this.followedByCount,
       this.biography,
@@ -27,6 +32,8 @@ class UserModel {
   UserModel.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     profileImageData = json['profile_image_data'];
+    isFollowing = json["is_follow"];
+    isFollowed = json['is_follower'];
     email = json['email'];
     firstname = json['firstname'];
     lastname = json['lastname'];

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/search/controller/search_controller.dart';
-import 'package:technicmate/features/user/controller/user_profile_controller.dart';
 import 'package:technicmate/features/user/view/user_profile_view.dart';
 import 'package:technicmate/theme/palette.dart';
 
@@ -62,14 +61,11 @@ class SearchView extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: InkWell(
                     onTap: () async {
-                      // UserProfileController controller2 =
-                      //     Get.put(UserProfileController());
-                      // String selectedUserId =
-                      //     controller.model.value.data![index].userId.toString();
-                      // controller2.userId = selectedUserId;
-                      // await controller2.fetchPosts(selectedUserId);
-                      // await controller2.fetchUserDetail(selectedUserId);
-                      // Get.to(UserProfileView());
+                      Get.to(
+                        () => UserProfileView(
+                          userId: controller.model.value.data?[index].userId,
+                        ),
+                      );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
 import 'package:technicmate/features/feed/model/feed_model.dart';
 import 'package:technicmate/features/home/view/home_view.dart';
@@ -16,6 +17,9 @@ class PostController extends GetxController {
   var commentCreateModel = CommentCreateModel();
   var postModel = PostGetByIdModel().obs;
   var feedModel = FeedModel().obs;
+
+  var ids = <String?>[];
+  RxInt index = 0.obs;
 
   FeedController feedController = FeedController();
 
@@ -35,6 +39,7 @@ class PostController extends GetxController {
   var isLoading = false.obs;
   var isSelected = false.obs;
   var selectedValue = 3.obs;
+  var isFocused = false.obs;
 
   Future<void> fetchPostById(String postId) async {
     try {
@@ -56,7 +61,7 @@ class PostController extends GetxController {
   Future<void> postComment() async {
     try {
       commentCreateModel.replyPost = Get.arguments['id'];
-      commentCreateModel.postTypeId = "1";
+      commentCreateModel.postTypeId = "3";
       commentCreateModel.text = commentInputController.text;
       isLoading.value = true;
 

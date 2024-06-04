@@ -49,7 +49,10 @@ class SharingView extends StatelessWidget {
                     },
                     onTap: () {
                       Get.to(
-                        () => PostDetailView(postId: data[index].postId),
+                        () => PostDetailView(
+                          postId: data[index].postId,
+                          isFirstInit: true,
+                        ),
                         arguments: {
                           "id": data[index].postId,
                         },

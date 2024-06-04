@@ -17,6 +17,8 @@ class FeedController extends GetxController
   var images = AssetConstants.defaultProfileImage.obs;
   var isLoading = false.obs;
 
+  var isDrawer = false;
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   late TabController tabController;

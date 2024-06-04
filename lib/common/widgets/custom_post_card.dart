@@ -9,6 +9,7 @@ import 'package:technicmate/common/models/models.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
 import 'package:technicmate/features/post/controller/post_controller.dart';
+import 'package:technicmate/features/user/view/user_profile_view.dart';
 import 'package:technicmate/theme/theme.dart';
 
 class CustomPostCard extends StatelessWidget {
@@ -240,17 +241,11 @@ class CustomPostCardProfileImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: () async {
-      //   UserProfileController controller2 =
-      //       Get.put(UserProfileController());
-      //   String selectedUserId = controller
-      //       .feedPostModel.value.data![index].user!.userId
-      //       .toString();
-      //   controller2.userId = selectedUserId;
-      //   await controller2.fetchPosts(selectedUserId);
-      //   await controller2.fetchUserDetail(selectedUserId);
-      //   Get.to(UserProfileView());
-      // },
+      onTap: () async {
+        Get.to(UserProfileView(
+          userId: data?.user?.userId,
+        ));
+      },
       child: Stack(
         children: [
           CircleAvatar(
