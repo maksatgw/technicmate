@@ -2,17 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:technicmate/constants/constants.dart';
-import 'package:technicmate/features/home/controller/home_controller.dart';
-
-import 'package:technicmate/features/splash/controller/splash_controller.dart';
+import 'package:technicmate/features/auth/login/view/login_view.dart';
+import 'package:technicmate/features/home/view/home_view.dart';
 import 'package:technicmate/theme/palette.dart';
 
-class SplashView extends StatelessWidget {
-  SplashView({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
+
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
   //Getx ile controller'ı dependency Injection yoluyla ekliyoruz.
-  final controller = Get.put(SplashController());
-  final homeController = Get.put(HomeController());
+  final box = GetStorage();
+
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (box.read('bearer') == null) {
+        Get.offAll(() => LoginView());
+      } else {
+        Get.offAll(() => HomeView());
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     //Scaffold ile ana yapıyı kuruyoruz.

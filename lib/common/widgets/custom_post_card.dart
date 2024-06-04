@@ -180,9 +180,17 @@ class CustomPostCardDeatilActions extends StatelessWidget {
                     onTap: (isLiked) async {
                       if (isLiked == false) {
                         await controller.likePost(post!.postId!);
+                        post?.likeCount = post?.likeCount != null
+                            ? post!.likeCount! + 1
+                            : post?.likeCount;
+                        post?.isLiked = true;
                         return true;
                       } else if (isLiked == true) {
                         await controller.likePost(post!.postId!);
+                        post?.likeCount = post?.likeCount != null
+                            ? post!.likeCount! - 1
+                            : post?.likeCount;
+                        post?.isLiked = false;
                         return false;
                       }
                       return false;

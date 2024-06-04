@@ -33,7 +33,7 @@ class RegisterGenderView extends StatelessWidget {
                   backgroundColor: Palette.white,
                   child: ClipOval(
                     child: Image.network(
-                      "https://cdn.iconscout.com/icon/free/png-512/free-person-2653741-2202553.png?f=webp&w=256",
+                      AssetConstants.defaultProfileImage,
                       width: 150,
                       height: 150,
                       fit: BoxFit.cover,
@@ -43,7 +43,8 @@ class RegisterGenderView extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   "Hoş geldin!",
-                  style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w100),
+                  style: GoogleFonts.inter(
+                      fontSize: 20, fontWeight: FontWeight.w100),
                 ),
               ],
             ),
@@ -68,7 +69,8 @@ class RegisterGenderView extends StatelessWidget {
                           height: 216,
                           padding: const EdgeInsets.only(top: 6.0),
                           margin: EdgeInsets.only(
-                            bottom: MediaQuery.of(Get.context!).viewInsets.bottom,
+                            bottom:
+                                MediaQuery.of(Get.context!).viewInsets.bottom,
                           ),
                           color: Palette.black,
                           child: SafeArea(

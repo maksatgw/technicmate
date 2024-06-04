@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:technicmate/constants/asset_constants.dart';
@@ -15,12 +14,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SliderDrawer(
-        appBar: null,
-        slider: Container(),
-        key: controller.sliderDrawerKey,
-        child: Obx(() => controller.pages[controller.currentIndex.value]),
-      ),
+      body: Obx(() => controller.pages[controller.currentIndex.value]),
       bottomNavigationBar: Obx(
         () => CupertinoTabBar(
           height: 80,

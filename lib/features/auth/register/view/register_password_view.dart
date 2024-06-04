@@ -34,7 +34,7 @@ class RegisterPasswordView extends StatelessWidget {
                   backgroundColor: Palette.white,
                   child: ClipOval(
                     child: Image.network(
-                      "https://cdn.iconscout.com/icon/free/png-512/free-person-2653741-2202553.png?f=webp&w=256",
+                      AssetConstants.defaultProfileImage,
                       width: 150,
                       height: 150,
                       fit: BoxFit.cover,

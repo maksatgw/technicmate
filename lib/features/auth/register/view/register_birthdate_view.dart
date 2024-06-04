@@ -33,7 +33,7 @@ class RegisterBirthdateView extends StatelessWidget {
                   backgroundColor: Palette.white,
                   child: ClipOval(
                     child: Image.network(
-                      "https://cdn.iconscout.com/icon/free/png-512/free-person-2653741-2202553.png?f=webp&w=256",
+                      AssetConstants.defaultProfileImage,
                       width: 150,
                       height: 150,
                       fit: BoxFit.cover,
@@ -43,7 +43,8 @@ class RegisterBirthdateView extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   "Devam Edelim!",
-                  style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w100),
+                  style: GoogleFonts.inter(
+                      fontSize: 20, fontWeight: FontWeight.w100),
                 ),
               ],
             ),
@@ -63,7 +64,11 @@ class RegisterBirthdateView extends StatelessWidget {
                       () => TextFormField(
                         readOnly: true,
                         onTap: () => controller.pickDate(context),
-                        controller: TextEditingController(text: controller.selectedDate.value.toLocal().toString().split(' ')[0]),
+                        controller: TextEditingController(
+                            text: controller.selectedDate.value
+                                .toLocal()
+                                .toString()
+                                .split(' ')[0]),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6),

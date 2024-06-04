@@ -12,9 +12,9 @@ class SplashController extends GetxController {
     //5 saniye gecikmeli bir işlem yaparak Logine yönlendirme yapıyoruz.
     Future.delayed(const Duration(seconds: 2), () {
       if (box.read('bearer') == null) {
-        Get.off(() => LoginView());
+        Get.offAll(() => LoginView());
       } else {
-        Get.off(() => HomeView());
+        Get.offAll(() => HomeView());
       }
     });
     super.onInit();

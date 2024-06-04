@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:technicmate/features/feed/controller/feed_controller.dart';
 import 'package:technicmate/features/feed/model/feed_model.dart';
 import 'package:technicmate/features/home/view/home_view.dart';
@@ -24,17 +23,6 @@ class PostController extends GetxController {
   FeedController feedController = FeedController();
 
   final PostService service = PostService();
-
-  // @override
-  // void onInit() async {
-  //   super.onInit();
-
-  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
-  //     await fetchPostById(Get.arguments['id']);
-  //     print(Get.arguments['id']);
-  //     await fetchPostComments(Get.arguments['id']);
-  //   });
-  // }
 
   var isLoading = false.obs;
   var isSelected = false.obs;
@@ -75,6 +63,7 @@ class PostController extends GetxController {
           backgroundColor: Colors.blue,
           icon: const Icon(Icons.add_alert),
         );
+        commentInputController.clear();
         isLoading.value = false;
       }
       isLoading.value = false;

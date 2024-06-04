@@ -34,36 +34,54 @@ class _PostDetailViewState extends State<PostDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Post"),
-        leading: BackButton(
-          onPressed: () {
-            if (controller.ids.length == 1) {
-              Get.off(() => HomeView());
-            } else {
-              controller.ids.removeAt(controller.ids.length - 1);
-              print(controller.ids);
-              Get.off(
-                () => PostDetailView(
-                  postId: controller.ids.last,
-                  isFirstInit: false,
-                ),
-                preventDuplicates: false,
-              );
-            }
-          },
+    return WillPopScope(
+      onWillPop: () async {
+        if (controller.ids.length == 1) {
+          Get.offAll(() => HomeView());
+        } else {
+          controller.ids.removeAt(controller.ids.length - 1);
+          print(controller.ids);
+          Get.off(
+            () => PostDetailView(
+              postId: controller.ids.last,
+              isFirstInit: false,
+            ),
+            preventDuplicates: false,
+          );
+        }
+        return false; // false means do not pop the route
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Post"),
+          leading: BackButton(
+            onPressed: () {
+              if (controller.ids.length == 1) {
+                Get.offAll(() => HomeView());
+              } else {
+                controller.ids.removeAt(controller.ids.length - 1);
+                print(controller.ids);
+                Get.off(
+                  () => PostDetailView(
+                    postId: controller.ids.last,
+                    isFirstInit: false,
+                  ),
+                  preventDuplicates: false,
+                );
+              }
+            },
+          ),
         ),
+        body: Obx(() {
+          if (controller.isLoading.isTrue) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (controller.postModel.value.data == null) {
+            return const Center(child: Text("data"));
+          }
+          return _buildPostDetail();
+        }),
       ),
-      body: Obx(() {
-        if (controller.isLoading.isTrue) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (controller.postModel.value.data == null) {
-          return const Center(child: Text("data"));
-        }
-        return _buildPostDetail();
-      }),
     );
   }
 

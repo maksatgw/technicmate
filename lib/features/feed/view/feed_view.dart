@@ -12,10 +12,12 @@ import 'package:technicmate/features/user/view/user_profile_view.dart';
 class FeedView extends StatelessWidget {
   FeedView({super.key});
   final controller = Get.put(FeedController());
+  // final _drawerKey = GlobalKey<ScaffoldState>();
   // final homeController = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: controller.scaffoldKey,
       drawer: Drawer(
         child: ListView(
           children: [
@@ -24,7 +26,8 @@ class FeedView extends StatelessWidget {
               onTap: () {
                 controller.box.remove("bearer");
                 controller.box.remove("uimage");
-                Get.offAll(() => SplashView());
+                controller.box.remove("uid");
+                Get.off(() => SplashView());
               },
             )
           ],
@@ -34,12 +37,7 @@ class FeedView extends StatelessWidget {
         leadingWidth: 80,
         leading: IconButton(
           onPressed: () {
-            controller.isDrawer = !controller.isDrawer;
-            // if (controller.isDrawer = true) {
-            //   homeController.sliderDrawerKey.currentState!.openSlider();
-            // } else {
-            //   homeController.sliderDrawerKey.currentState!.closeSlider();
-            // }
+            controller.openDrawer();
           },
           icon: SvgPicture.asset(
             AssetConstants.technicMateLogoWhite,

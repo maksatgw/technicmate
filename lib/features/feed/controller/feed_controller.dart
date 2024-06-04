@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:technicmate/constants/constants.dart';
 import 'package:technicmate/features/feed/model/feed_model.dart';
 import 'package:technicmate/features/feed/service/feed_service.dart';
+import 'package:technicmate/features/home/view/home_view.dart';
 
 class FeedController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -108,6 +109,7 @@ class FeedController extends GetxController
       if (response != null && response == true) {
         await fetchPosts();
         isLoading.value = false;
+        Get.offAll(() => HomeView());
         Get.snackbar(
           "Başarılı",
           "Post Başarıyla Kaldırıldı",
